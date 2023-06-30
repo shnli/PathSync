@@ -5,9 +5,9 @@ import PropTypes from "prop-types"; // Import PropTypes to specify prop types
 // import { emailData } from '@/pages';
 // import type { emailData } from '@/pages';
 
-export type emailData = {
-  email: string;
-};
+// export type emailData = {
+//   email: string;
+// };
 
 type NavbarProps = {
   userEmail: string; // Change the prop type to string

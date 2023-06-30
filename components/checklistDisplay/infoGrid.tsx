@@ -17,7 +17,7 @@ export default function InfoGrid(props:{ formData:initialFormData }) {
   };
 
 
-  const wordMappings = {
+  const wordMappings: { [key: string]: string } = {
     model: "Product Model Code:",
     purchaseOrder: "Purchase Order Code:",
     orderQuantity: "Order Qty:",
