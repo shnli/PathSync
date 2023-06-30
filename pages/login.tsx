@@ -1,0 +1,152 @@
+import axios from 'axios';
+import { useRouter } from "next/router";
+import React, { useState } from 'react';
+import Image from 'next/image';
+
+
+
+
+export default function Login() {
+
+    function newUser(){
+    
+        const emailField = document.getElementById("email") as HTMLInputElement
+        const email = emailField.value
+        const passwordField = document.getElementById("password") as HTMLInputElement
+        const password = passwordField.value
+
+
+        if (!email || !password){
+            return
+          }
+      
+        axios({
+            method: 'post',
+            url: '/api/auth/signup',
+            data: {
+                email: email,
+                password: password
+            }
+        })
+        .then(function (response) {
+            console.log(response);
+            localStorage.setItem("email", email); // Set the email in localStorage
+            localStorage.setItem("password", password);            
+            router.push("/");
+        })
+        .catch(function (error) {
+            setError("This user already exists, please log in."); 
+            console.log(error);
+        });
+    }
+
+    function getUser(){
+        const emailField = document.getElementById("email") as HTMLInputElement
+        const email = emailField.value
+        const passwordField = document.getElementById("password") as HTMLInputElement
+        const password = passwordField.value
+        
+        if (!email || !password) {
+            return;
+          }
+      
+        axios({
+            method: 'post',
+            url: '/api/auth/login',
+            data: {
+                email: email,
+                password: password
+            }
+        })
+        .then(function (response) {
+            console.log(response);
+            localStorage.setItem("email", email); // Set the email in localStorage
+            localStorage.setItem("password", password);// Set the email in localStorage
+            router.push({
+                pathname: "/", // The path to your GraphPage component
+            });
+        })
+        .catch(function (error) {
+            setError("User not found, create an account."); // Set error message
+            console.log(error);
+        });
+    }
+
+    function localStorageTest(){
+        console.log(localStorage.getItem('email'))
+    }
+
+
+
+
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const router = useRouter();
+    const [error, setError] = useState("");
+
+
+
+  return (
+    <div className='flex flex-col items-center justify-center h-screen md:bg-gray-100 '>
+        
+        <div className='md:rounded-xl md:shadow-md md:bg-white '>
+            <div className='flex items-center justify-center text-center pt-12'>
+                <Image
+                    src="/stats.svg"
+                    alt="image"
+                    width={200}
+                    height={100}
+                    className="rounded-lg"
+                />
+                <div className='flex justify-center font-bold text-xl text-blue-400'>JDM Management Solutions</div>
+            </div>
+
+        <div className="mx-auto w-full px-12 py-16">
+            <div className='flex justify-center text-3xl font-bold text-gray-500 pb-8'>Welcome Back!</div>
+            <div className='flex justify-center text-sm text-gray-400 pb-8'>Start transforming your collaborative manufacturing process with enhanced transparency today.</div>
+
+            <div className="mx-auto max-w-md">
+            <div className="pt-4">
+                <label htmlFor="email" className="block mb-1 font-medium text-gray-500">
+                Email
+                </label>
+                <input
+                placeholder="Email"
+                id="email"
+                type="text"
+                className="text-gray-500 w-full px-8 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                />
+            </div>
+
+            <div className="pt-4">
+                <label htmlFor="password" className="block mb-1 font-medium text-gray-500">
+                Password
+                </label>
+                <input
+                placeholder="Password"
+                id="password"
+                type="password"
+                className="text-gray-500 w-full px-8 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
+            </div>
+
+            <div className='flex justify-center pt-12 gap-4'>
+            <button onClick={getUser} className='px-16 py-2 border-2 border-blue-400 rounded-md text-blue-400 hover:shadow-none shadow-md'>Log in</button>
+            <button onClick={newUser} className='px-16 py-2 rounded-md bg-blue-400 text-white hover:shadow-none shadow-md'>Sign Up</button>
+            </div>
+
+            {error && <div className="text-red-500 text-center mt-4">{error}</div>}
+
+        </div>
+      </div>
+    </div>
+  );
+    
+  
+}

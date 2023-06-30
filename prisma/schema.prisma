@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  password String
+  email String  @unique
+  projects Project[]
+  // posts Post[]
+}
+
+// model Post {
+//   id        Int     @id @default(autoincrement())
+//   title     String
+//   content   String?
+//   published Boolean @default(false)
+//   author    User    @relation(fields: [authorId], references: [id])
+//   authorId  Int
+// }
+
+model Project {
+  id Int @id @default(autoincrement())
+  productModel String
+  purchaseOrderCode String
+  productName String
+  orderQuantity String
+  orderDate String
+  projectStartDate String
+
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  Int
+  
+  tasks Task[]
+}
+
+model Task {
+  
+  id        Int     @id @default(autoincrement())
+
+  step Int
+  startCheck Boolean
+  finishCheck Boolean
+  task String
+  lead String
+  duration String
+  expectedStart String
+  expectedFinish String
+  start String
+  finish String
+  remarks String
+  executingSide String
+
+  project        Project  @relation(fields: [projectId], references: [id])  
+  projectId      Int      // Assuming projectId references the ID field of the Project model
+
+}
+
