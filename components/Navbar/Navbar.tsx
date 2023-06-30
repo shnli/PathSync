@@ -1,8 +1,19 @@
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from "next/router";
+import PropTypes from "prop-types"; // Import PropTypes to specify prop types
+// import { emailData } from '@/pages';
+// import type { emailData } from '@/pages';
 
-export default function Navbar({ email }) {
+export type emailData = {
+  email: string;
+};
+
+type NavbarProps = {
+  userEmail: string; // Change the prop type to string
+};
+
+export default function Navbar(props: NavbarProps) {
   const router = useRouter();
 
   function handleSignOut() {
@@ -12,7 +23,7 @@ export default function Navbar({ email }) {
     router.push("/login");
   }
 
-  if (email == null) {
+  if (props.userEmail == null) {
     return (
       <div className='absolute left-0 right-0 bg-white'>
         <div className="flex justify-between items-center px-16 pt-4">
@@ -54,7 +65,7 @@ export default function Navbar({ email }) {
               <button onClick={handleSignOut} className="no-underline hover:underline text-red-500 ">Sign Out</button>
             </div>
 
-            <p className="text-sm hidden md:flex text-primary-blue ">Welcome, {email}</p>
+            <p className="text-sm hidden md:flex text-primary-blue ">Welcome, {props.userEmail}</p>
           </div>
         </div>
         <hr className="mt-4 border-[1px] border-opacity-60 border-primary-blue" />

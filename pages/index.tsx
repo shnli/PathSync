@@ -7,8 +7,10 @@ import { useEffect } from "react";
 
 
 
+
+
 export default function Home() {
-  
+    
   const router = useRouter();
   const [email, setEmail] = useState("");
 
@@ -26,13 +28,10 @@ export default function Home() {
   }, [router]);
 
 
-
-
-  
   return (
     <>
       
-      <Navbar email={email}></Navbar>
+      <Navbar userEmail={email}></Navbar>
 
 
 
@@ -49,15 +48,6 @@ export default function Home() {
           <Link href="/newProject" className="bg-primary-blue font-medium text-md text-white px-16 py-4 rounded-lg cursor-pointer shadow-md hover:shadow-none border-2 border-primary-blue hover:border-[1px]">Start New Project</Link>
           <Link href="/myTrackers" className="bg-white border-2 hover:border-[1px] ml-8 border-primary-blue font-medium placeholder:text-md text-primary-blue px-16 py-4 shadow-md hover:shadow-none rounded-lg cursor-pointer">Project History</Link>
         </div>  
-        
-        {/* API CALLS */}
-        
-        {/* <button 
-          onClick = {getTask}> getTask
-        </button>
-        <button 
-          onClick = {newTask}> newTask
-        </button> */}
 
 
       </div>
