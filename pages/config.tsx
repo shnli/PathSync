@@ -1,6 +1,6 @@
 import React from "react";
 import NavbarSide from "../components/Navbar/NavbarSide";
-import ConfigWholeDropdown from "../components/configComponents/configWholeDropDown";
+// import ConfigWholeDropdown from "../components/configComponents/configWholeDropDown";
 
 
 
@@ -26,7 +26,7 @@ export default function Config() {
           <div className="text-gray-500 font-bold pb-4 w-screen text-md"> My Saved Templates</div>
           <div className="space-y-8">
             <div className="text-gray-500 font-  w-screen text-md shadow-md"> Research and Development Timeline</div>
-            <ConfigWholeDropdown></ConfigWholeDropdown>
+            {/* <ConfigWholeDropdown></ConfigWholeDropdown> */}
           </div>
           
           </div>

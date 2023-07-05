@@ -4,6 +4,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import Navbar from '../components/Navbar/Navbar';
 import React from 'react';
+import { Task } from '@prisma/client';
 
 
 
@@ -149,7 +150,7 @@ export default function MyTrackerSubpage()  {
         };
 
 
-        const handleTaskChange = (e: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof Task) => {
+        const handleTaskChange = (e: any, index: number, field: keyof Task) => {
           const { value } = e.target;
           setTasks(prevTasks => {
             const newTasks = [...prevTasks];
@@ -163,7 +164,7 @@ export default function MyTrackerSubpage()  {
         };
 
 
-        const [insertIndex, setInsertIndex] = useState<number | null>(null);
+        const [insertIndex, setInsertIndex] = useState<number>(-1);
         const rightClickedTaskRef = useRef<HTMLDivElement | null>(null);
         const [stepNumber, setStepNumber] = useState(1);
 
@@ -212,21 +213,34 @@ export default function MyTrackerSubpage()  {
             const newTasks = [...prevTasks];
         
             newTasks.splice(insertIndex, 0, {
-            });
-            // Update the step numbers
+              id: 0,
+              step: stepNumber,
+              startCheck: false,
+              finishCheck: false,
+              task: '',
+              lead: '',
+              duration: '',
+              expectedStart: '',
+              expectedFinish: '',
+              start: '',
+              finish: '',
+              remarks: '',        
+              executingSide: '',
+              projectId: 0,
+            });            // Update the step numbers
             newTasks.forEach((item, idx) => {
-              item.step = idx + 1;
+              item.step = idx + 1; // Use idx here instead of index
             });
         
             return newTasks;
           });
         
-          setInsertIndex(null); // Reset the insertIndex
-        }
+          setInsertIndex(-1); // Reset the insertIndex
+        };
     
         const [showInsertTaskButton, setShowInsertTaskButton] = useState(false);
         const handleCancelInsertion = () => {
-          setInsertIndex(null); // Reset the insertIndex
+          setInsertIndex(-1); // Reset the insertIndex
           setShowInsertTaskButton(false); // Hide the insert task button
         };
 
@@ -310,7 +324,7 @@ export default function MyTrackerSubpage()  {
               <div className='pt-2 space-y-1 '>
               {sortedTasks.map((task: any, index: number) => (
 
-                <div key={task.id} className={`flex justify-between grid-cols-7 justify-start py-4 px-4 ${index % 2 === rowIndex % 2 ? 'border-2 rounded-lg' : ''}`}>
+                <div key={task.id} onContextMenu={(e) => handleTaskRightClick(e, index)} className={`flex justify-between grid-cols-7 justify-start py-4 px-4 ${index % 2 === rowIndex % 2 ? 'border-2 rounded-lg' : ''}`}>
                   <div className='flex grid-cols-8 bg-white'>
                     <div className="flex jusitfy-center w-[20px] bg-gray-300 rounded-lg px-1 text-white"> {task.step}
                     </div>
@@ -392,7 +406,7 @@ export default function MyTrackerSubpage()  {
                       <div className='pt-1 w-[60px] px-4 text-xs overflow-hidden'>
                         <select value={task.executingSide} onChange={(e) => handleDropDownChange(e, index, 'executingSide')}
                           className="flex justify-center items-center px-4 text-xs">
-                          <option disabled selected value="Select">
+                          <option selected value="Select">
                             --Select--
                           </option>
 
@@ -407,7 +421,7 @@ export default function MyTrackerSubpage()  {
                       </div>
 
                   
-                    {insertIndex !== null && (
+                    {insertIndex !== -1 && (
                       <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-200 opacity-80">
                         <div className="flex flex-col items-center">
                         <button
@@ -478,7 +492,7 @@ export default function MyTrackerSubpage()  {
   return (
       <div className="h-screen bg-gray-50">
         
-          <Navbar></Navbar>
+          <Navbar userEmail=''></Navbar>
           {/* <NavbarSide /> */}
           <div className="pt-24">
             <div className="rounded-lg px-12">
@@ -492,7 +506,6 @@ export default function MyTrackerSubpage()  {
                         className=''
                         type="text"
                         value={productModel}
-                        // onChange={(e) => handleProjectChange(e, index, 'remarks')}
                       /> 
                   </div>
                   <div className="flex space-x-4 py-4 px-4">
@@ -501,7 +514,6 @@ export default function MyTrackerSubpage()  {
                         className=''
                         type="text"
                         value={purchaseOrderCode}
-                        // onChange={(e) => handleTaskChange(e, index, 'remarks')}
                       /> 
                   </div>
                   <div className="flex space-x-4 py-4 px-4">
@@ -510,7 +522,6 @@ export default function MyTrackerSubpage()  {
                         className=''
                         type="text"
                         value={orderQuantity}
-                        // onChange={(e) => handleTaskChange(e, index, 'remarks')}
                       /> 
                   </div>
                   <div className="flex space-x-4 py-4 px-4">
@@ -519,7 +530,6 @@ export default function MyTrackerSubpage()  {
                         className=''
                         type="text"
                         value={orderDate}
-                        // onChange={(e) => handleTaskChange(e, index, 'remarks')}
                       /> 
                   </div>
                   <div className="flex space-x-4 py-4 px-4">
@@ -528,7 +538,6 @@ export default function MyTrackerSubpage()  {
                         className=''
                         type="text"
                         value={projectStartDate}
-                        // onChange={(e) => handleTaskChange(e, index, 'remarks')}
                       /> 
                   </div>
 
@@ -538,7 +547,6 @@ export default function MyTrackerSubpage()  {
                         className=''
                         type="text"
                         value={id}
-                        // onChange={(e) => handleTaskChange(e, index, 'remarks')}
                       /> 
                   </div>
 

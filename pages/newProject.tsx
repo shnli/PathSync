@@ -9,7 +9,7 @@ export default function NewProject() {
 
   return (
     <div className="h-screen bg-gray-50 w-full">
-      <Navbar ></Navbar> 
+      <Navbar userEmail=""></Navbar> 
       {/* email={email} */}
       <div className="pt-16 pb-12">
         <div className="bg-white mx-96 my-8 py-4 rounded-lg shadow-md">

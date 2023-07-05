@@ -198,7 +198,7 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
       });
     };
     
-    const [insertIndex, setInsertIndex] = useState<number | null>(null);
+    const [insertIndex, setInsertIndex] = useState<number>(-1);
     const rightClickedTaskRef = useRef<HTMLDivElement | null>(null);
 
     const handleTaskRightClick = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
@@ -212,6 +212,20 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
       setChecklistData((prevData) => {
         const newData = [...prevData];
           newData.splice(insertIndex, 0, {
+            id: 0,
+            step: stepNumber,
+            startCheck: false,
+            finishCheck: false,
+            task: '',
+            lead: '',
+            duration: '',
+            expectedStart: '',
+            expectedFinish: '',
+            start: '',
+            finish: '',
+            remarks: '',        
+            executingSide: '',
+            projectId: 0,
           });
           // Update the step numbers
           newData.forEach((item, idx) => {
@@ -221,12 +235,12 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
         return newData;
       });
     
-      setInsertIndex(null); // Reset the insertIndex
+      setInsertIndex(-1); // Reset the insertIndex
     }
 
     const [showInsertTaskButton, setShowInsertTaskButton] = useState(false);
     const handleCancelInsertion = () => {
-      setInsertIndex(null); // Reset the insertIndex
+      setInsertIndex(-1); // Reset the insertIndex
       setShowInsertTaskButton(false); // Hide the insert task button
     };
 
@@ -403,6 +417,8 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
 
 
 
+
+
                 <div className='pt-1 w-[70px] px-4 text-xs overflow-hidden'>
                       <select
                       value={item.executingSide}
@@ -464,7 +480,7 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
             
           </div>
 
-          {insertIndex !== null && (
+          {insertIndex !== -1 && (
             <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-200 opacity-80">
               <div className="flex flex-col items-center">
               <button
