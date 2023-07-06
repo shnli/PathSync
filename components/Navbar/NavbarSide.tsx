@@ -16,7 +16,7 @@ export default function NavbarSide() {
         <div className="h-full px-8 py-4 overflow-y-auto border-r-2">
             <ul className="space-y-4">
                 <Link href="/" className="flex items-center text-primary-blue font-bold">
-                    <span className="ml-3 pt-8 pb-12 self-center text-xl font-semibold whitespace-nowrap ">JDM M.S.</span>
+                    <span className="ml-3 pt-8 pb-12 self-center text-xl font-semibold whitespace-nowrap ">PathSync</span>
                 </Link>
 
                 <div className='ml-3 text-gray-400 '>Main Menu</div>

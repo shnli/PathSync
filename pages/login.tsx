@@ -99,7 +99,7 @@ export default function Login() {
                     height={100}
                     className="rounded-lg"
                 />
-                <div className='flex justify-center font-bold text-xl text-blue-400'>JDM Management Solutions</div>
+                <div className='flex justify-center font-bold text-xl text-blue-400'>PathSync</div>
             </div>
 
         <div className="mx-auto w-full px-12 py-16">

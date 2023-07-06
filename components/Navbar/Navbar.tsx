@@ -17,9 +17,8 @@ export default function Navbar(props: NavbarProps) {
   const router = useRouter();
 
   function handleSignOut() {
-    // Clear the email from localStorage or perform any other necessary sign-out actions
     localStorage.removeItem("email");
-    // Redirect the user to the login page
+    // Redirect user to the login page
     router.push("/login");
   }
 
@@ -27,7 +26,7 @@ export default function Navbar(props: NavbarProps) {
     return (
       <div className='absolute left-0 right-0 bg-white'>
         <div className="flex justify-between items-center px-16 pt-4">
-          <Link href="/" className="text-xl font-OP text-primary-blue font-bold">JDM M.S.</Link>
+          <Link href="/" className="text-xl font-OP text-primary-blue font-bold">PathSync</Link>
 
           <div className='flex justify-center w-full md:w-auto gap-6 text-primary-blue'>
             <div className='text-sm'>
@@ -52,7 +51,7 @@ export default function Navbar(props: NavbarProps) {
     return (
       <div className='absolute left-0 right-0 bg-white'>
         <div className="flex justify-between items-center px-16 pt-4">
-          <Link href="/" className="text-xl font-OP text-primary-blue font-bold">JDM M.S.</Link>
+          <Link href="/" className="text-xl font-OP text-primary-blue font-bold">PathSync</Link>
 
           <div className='flex justify-center w-full md:w-auto gap-6 text-primary-blue'>
             <div className='text-sm'>
