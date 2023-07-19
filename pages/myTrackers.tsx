@@ -16,8 +16,19 @@ export default function MyTrackers() {
                 </svg>
             </div>
 
-            <p className="text-primary-blue">My Trackers</p>
+            <div className="flex flex-row justify-start gap-4">
+                <p className="text-primary-blue">My Trackers</p>
+                    <Link href="/newProject" className="bg-white font-medium text-sm text-primary-blue flex align-center items-center px-4 rounded-full cursor-pointer hover:shadow-none border-2 border-primary-blue hover:border-[1px]">
+                        <span className="mr-2">New</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                    </Link>
+                </div>
+
+
         </div>
+        
         <NavbarSide></NavbarSide>
 
        
@@ -25,7 +36,6 @@ export default function MyTrackers() {
             <div className="p-4 rounded-lg ">
                 <SearchTracker></SearchTracker>
 
-            
             </div>
         </div>
     </div>

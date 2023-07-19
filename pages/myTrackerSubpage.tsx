@@ -131,7 +131,7 @@ export default function MyTrackerSubpage()  {
                 const newTaskId = newTaskResponse.data.id;
                 setTasks(prevTasks => {
                   const updatedTasks = [...prevTasks];
-                  updatedTasks[i].id = newTaskId;
+                  updatedTasks[i] = { ...updatedTasks[i], id: newTaskId };  // Update the task with a new ID
                   return updatedTasks;
                 });
               }
@@ -494,7 +494,7 @@ export default function MyTrackerSubpage()  {
         
           <Navbar userEmail=''></Navbar>
           {/* <NavbarSide /> */}
-          <div className="pt-24">
+          <div className="pt-24 pb-12">
             <div className="rounded-lg px-12">
       
               <div>

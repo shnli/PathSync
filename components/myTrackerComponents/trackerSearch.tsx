@@ -214,7 +214,7 @@ export default function SearchTracker() {
                       <Link
                         className='flex justify-end align-center text-primary-blue hover:underline font-semibold text-sm'
                         href={{
-                        pathname: '/myTrackerSubpage',
+                        pathname: '/myTrackerAnalytics',
                         query: {
                             id: project.id,
                             purchaseOrderCode: project.purchaseOrderCode,

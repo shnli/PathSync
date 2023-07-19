@@ -22,7 +22,7 @@ export default function Navbar(props: NavbarProps) {
     router.push("/login");
   }
 
-  if (props.userEmail == null) {
+  if (!props.userEmail) {
     return (
       <div className='absolute left-0 right-0 bg-white'>
         <div className="flex justify-between items-center px-16 pt-4">

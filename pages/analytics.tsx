@@ -2,12 +2,30 @@ import React from "react";
 import Navbar from "../components/Navbar/Navbar"
 import NavbarSide from "../components/Navbar/NavbarSide"
 import Link from "next/link"
+import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 
 
 export default function Analytics() {
+    const [projectCount, setProjectCount] = useState(0);
+
+    useEffect(() => {
+      fetchProjectCount();
+    }, []);
+  
+    const fetchProjectCount = async () => {
+      try {
+        const response = await axios.get("/api/getProjectCount");
+        const { count } = response.data;
+        setProjectCount(count);
+      } catch (error) {
+        console.error("Error retrieving project count:", error);
+      }
+    };
+
 
   return (
-    <div className="h-screen bg-gray-50 overflow-x-hidden">
+    <div className="h-screen bg-gray-50 overflow-x-hidden ">
        <div className="flex pt-12 pl-72">
             <div className="pr-2">
                 <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="w-10 h-10 text-primary-blue">
@@ -23,33 +41,17 @@ export default function Analytics() {
         <NavbarSide></NavbarSide>
 
         
-        <div className="p-4 sm:ml-64">
-            <div className="p-4 rounded-lg ">
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="flex items-center justify-center h-24 rounded bg-gray-200">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">Number of Completed Projects</p>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded bg-gray-200">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">Most Recent Project</p>
+        <div className="flex p-4 sm:ml-64 justify-center py-24 ">
+
+                <div className="flex flex-col justify-center align-center w-auto bg-white pb-8 w-[600px] rounded-xl shadow-md border-2">
+                    <div className="flex justify-center text-[300px] linear-wipe">{projectCount}</div>
+                    <div className="flex justify-center text-[40px] italic pb-8">Total Projects Created</div>
+                    <div className="justify-center flex mb-8 p-4 mx-24 rounded-lg bg-primary-blue font-bold text-white">
+                        <Link href={'/myTrackers'}> See Analytics for My Trackers</Link>
                     </div>
                 </div>
 
-                <div className="text-gray-400 font-bold text-xl py-4">Summary</div>
 
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="flex items-center justify-center h-24 rounded bg-gray-200">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">Avg. RFSD Lead Time Accuracy</p>
-                    </div>
-                    <div className="flex items-center justify-center h-24 rounded bg-gray-200">
-                        <p className="text-2xl text-gray-400 dark:text-gray-500">Avg. Qotana Lead Time Accuracy</p>
-                    </div>
-                </div>
-
-                <div className="flex items-center justify-center h-96 mb-4 rounded bg-gray-200">
-                    <p className="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-            
-            </div>
         </div>
     </div>
   )
