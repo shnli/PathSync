@@ -13,6 +13,9 @@ export default async function handler(req:any, res:any) {
     where: {
       email: email,
       password: password
+    },
+    select: {
+      id: true, 
     }
   });
 

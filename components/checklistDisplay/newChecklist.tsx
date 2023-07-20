@@ -72,7 +72,7 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
           projectId: projectId,
         });
       }
-      setSavingStatus("Project saved successfully!");
+      setSavingStatus("Project saved successfully! Please navigate toMy Projects to EDIT this project. If you save again on this page, you will create another new project.");
 
       console.log("Project and tasks saved successfully!");
     } catch (error) {

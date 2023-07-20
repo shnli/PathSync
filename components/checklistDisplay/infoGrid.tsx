@@ -13,7 +13,11 @@ export default function InfoGrid(props:{ formData:initialFormData }) {
   const [showChecklist, setShowChecklist] = useState(false); 
 
   const handleNextClick = () => {
-    setShowChecklist(true);
+    if (engineerData.SDRE && engineerData.QO) {
+      setShowChecklist(true);
+    } else {
+      alert('Please fill out both "Hardware Lead" and "Manufacturer Lead" fields.');
+    }  
   };
 
 
@@ -69,7 +73,7 @@ export default function InfoGrid(props:{ formData:initialFormData }) {
         
         <div className="pt-4 w-[400px]">
           <label className="block mb-1 font-medium text-gray-500">
-            Hardware Lead
+            Technician A
           </label>
           <input
             value={engineerData.SDRE}
@@ -83,7 +87,7 @@ export default function InfoGrid(props:{ formData:initialFormData }) {
 
           <div className="pt-4 w-[400px]">
             <label className="block mb-1 font-medium text-gray-500">
-              Manufacturer Lead
+              Technician B
             </label>
             <input
               value={engineerData.QO}

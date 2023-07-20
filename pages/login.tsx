@@ -31,7 +31,8 @@ export default function Login() {
         .then(function (response) {
             console.log(response);
             localStorage.setItem("email", email); // Set the email in localStorage
-            localStorage.setItem("password", password);            
+            localStorage.setItem("password", password);      
+                  
             router.push("/");
         })
         .catch(function (error) {
@@ -62,12 +63,20 @@ export default function Login() {
             console.log(response);
             localStorage.setItem("email", email); // Set the email in localStorage
             localStorage.setItem("password", password);// Set the email in localStorage
+
             router.push({
                 pathname: "/", // The path to your GraphPage component
             });
         })
         .catch(function (error) {
-            setError("User not found, create an account."); // Set error message
+            if (error.response && error.response.status === 401) {
+                setError("Incorrect password. Please try again.");}
+            else if (error.response && error.response.status === 404){
+                setError("User not found, create an account."); 
+            }
+            else {
+                setError("An error occurred. Please try again later."); // Set generic error message
+              }
             console.log(error);
         });
     }
@@ -90,7 +99,7 @@ export default function Login() {
   return (
     <div className='flex flex-col items-center justify-center h-screen md:bg-gray-100 '>
         
-        <div className='md:rounded-xl md:shadow-md md:bg-white '>
+        <div className='md:rounded-xl md:shadow-md md:bg-white max-w-[600px]'>
             <div className='flex items-center justify-center text-center pt-12'>
                 <Image
                     src="/stats.svg"
@@ -103,16 +112,16 @@ export default function Login() {
             </div>
 
         <div className="mx-auto w-full px-12 py-16">
-            <div className='flex justify-center text-3xl font-bold text-gray-500 pb-8'>Welcome Back!</div>
-            <div className='flex justify-center text-sm text-gray-400 pb-8'>Start transforming your collaborative manufacturing process with enhanced transparency today.</div>
+            <div className='flex justify-center text-3xl font-bold text-gray-500 pb-8'>Welcome!</div>
+            <div className='flex justify-center text-sm text-gray-400 pb-8 px-12 text-center'>Transform the way you manage and analyze collaborative processes today.</div>
 
             <div className="mx-auto max-w-md">
             <div className="pt-4">
                 <label htmlFor="email" className="block mb-1 font-medium text-gray-500">
-                Email
+                Username
                 </label>
                 <input
-                placeholder="Email"
+                placeholder="EX: JohnDoe"
                 id="email"
                 type="text"
                 className="text-gray-500 w-full px-8 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
@@ -126,7 +135,7 @@ export default function Login() {
                 Password
                 </label>
                 <input
-                placeholder="Password"
+                placeholder="EX: MyPassword123"
                 id="password"
                 type="password"
                 className="text-gray-500 w-full px-8 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
