@@ -256,7 +256,7 @@ export default function MyTrackerSubpage()  {
                     </div>
                 </Link>
             </div>
-            <div className='flex justify-between w-screen px-64 pb-4'>
+            <div className='flex justify-between w-screen px-48 pb-4'>
                 <div className="flex justify-center items-center">
                     {renderCircleChart(calculatePercentageCompleted(sortedTasks))}
                 </div>
