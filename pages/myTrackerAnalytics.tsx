@@ -225,18 +225,44 @@ export default function MyTrackerSubpage()  {
           
       };
 
+    const [showInfoTab, setShowInfoTab] = useState(false);
+
+    const handleClick = (event: any) => {
+      event.preventDefault();
+      setShowInfoTab(!showInfoTab); // Toggle the visibility of the info tab
+    };
+
 
     const renderTasks = () => {
+      
         const sortedTasks = [...tasks].sort((a, b) => a.step - b.step);
         return (
           <div className='flex flex-col'>
-            <div className='flex justify-between w-screen px-64 pb-8'>
+            <div className='flex justify-end w-screen px-64 pt-8'>
+              <Link className='flex justify-center align-center rounded-lg text-white bg-primary-blue border-2 border-primary-blue text-sm px-4 w-48 py-2 hover:shadow-md hover:bg-white hover:text-primary-blue hover:border-primary-blue hover:border-2'
+                    href={{
+                    pathname: '/myTrackerSubpage',
+                    query: {
+                        id: id,
+                        purchaseOrderCode: purchaseOrderCode,
+                        productModel: productModel,
+                        orderDate: orderDate,
+                        orderQuantity: orderQuantity,
+                        projectStartDate: projectStartDate
+                    },
+                    }}>
+                    <div className='font-bold'>
+                      Edit Project
+                    </div>
+                </Link>
+            </div>
+            <div className='flex justify-between w-screen px-64 pb-4'>
                 <div className="flex justify-center items-center">
                     {renderCircleChart(calculatePercentageCompleted(sortedTasks))}
                 </div>
 
                 <div className='flex justify-center items-center'>
-                    <div className="p-8 text-lg text-black border-2 shadow-md rounded-lg">
+                    <div className="p-12 text-lg text-black border-2 shadow-md rounded-lg">
                         <div className='pb-4 flex justify-center font-bold opacity-40'> Average Duration Slippage</div>
                         <div className='grid grid-cols-2 gap-8'>
                             <div className='flex flex-col justify-start gap-2'>
@@ -252,7 +278,7 @@ export default function MyTrackerSubpage()  {
                 </div>
 
                 <div className='flex justify-center items-center'>
-                    <div className="p-8 text-lg text-black border-2 shadow-md rounded-lg">
+                    <div className="p-12 text-lg text-black border-2 shadow-md rounded-lg">
                         <div className='pb-4 flex justify-center font-bold opacity-40'> Average Schedule Slippage</div>
                         <div className='grid grid-cols-2 gap-8'>
                             <div className='flex flex-col justify-start gap-2'>
@@ -269,18 +295,62 @@ export default function MyTrackerSubpage()  {
 
             </div>
 
-            <div className='flex justify-end w-screen px-32 pb-4 text-xs text-gray-400'>
-                *All Calculations Exclude Weekends
+            <div className='flex justify-end w-screen px-64 pt-8 gap-8 items-center pb-4'>
+              <div className='flex justify-end text-xs text-gray-600'>
+                  *All Calculations Exclude Weekends
+              </div>
+             
+              <a href="#infoTab" onClick={handleClick}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className=" opacity-80 w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>  
+              </a>
             </div>
-            
+
+            {showInfoTab && (
+              <div className='absolute w-screen flex justify-center'>
+                <div id='infoTab' className='bg-white px-24 py-8 border-gray-200 border-2 rounded-xl shadow-md max-w-[900px] text-sm'>
+                  {/* Add the content of your info tab here */}
+                  <div className='pb-4 font-bold flex justify-center'>
+                    What&apos;s on This Page?
+                  </div>
+                  <div className='font-semibold flex justify-center text-red-500 text-sm text-center'>
+                    IMPORTANT: To receive Project Analytics, you must have selected an option for &ldquo;ES&rdquo; on each task.
+                  </div>
+                  <div className='pb-4 font-semibold text-primary-blue text-sm text-center flex justify-center gap-12'>
+                    <div>F = Finished</div>
+                    <div>ES = Executing Side</div>
+                  </div>
+                  <div className='font-bold'>
+                    For Each Project
+                  </div>
+                  <ul className='list-disc pl-8 text-sm pb-4'>
+                      <li><span className='text-primary-blue'>Average Duration Slippage (For Each Enterprise)</span> = (Σ Duration Slippage by Enterprise) / Number Tasks <span className='font-bold'>Completed</span> by Enterprise</li>
+                      <li><span className = "text-primary-blue">Average Schedule Slippage (For Each Enterprise)</span> = (Σ Schedule Slippage by Enterprise) / Number Tasks <span className='font-bold'>Completed</span> by Enterprise</li>
+                      <li><span className = "text-primary-blue">% Completion</span> = (Σ Tasks marked &ldquo;F&rdquo;)/Number of Tasks Total</li>
+
+                  </ul> 
+                  <div className='font-bold'>
+                    For Each Task
+                  </div>
+                  <ul className='list-disc pl-8 text-sm '>
+                      <li><span className = "text-primary-blue">Actual Duration</span> = Actual Finish - Actual Start </li>
+                      <li><span className = "text-primary-blue">Duration Slippage</span> = Actual Duration - Duration (based on Expected Finish - Expected Start)</li>
+                      <li><span className = "text-primary-blue">Schedule Slippage</span> = Actual Start - Projected Start</li> 
+                  </ul> 
+                  
+                </div>
+              </div>
+            )}
+
             <div className='bg-white flex flex-col justify-center w-screen'>
                 <div className='flex justify-center'>
-                    <div className="grid border-b-2">
-                    <div className="grid justify-start py-2 px-4 rounded-xl font-semibold text-xs text-gray-500">
-                        <div className='flex grid-cols-11'>
-                        <div className="flex jusitfy-center w-[25px] rounded-lg mx-auto px-1 text-white"> </div>
-                            <div className="w-[50px] px-4 font-bold">F</div>
-                            <div className="w-[50px] px-4 text-xs text-gray-350">ES</div>
+                    <div className=" border-b-2">
+                    {/* <div className="grid justify-start py-2 px-4 rounded-xl font-semibold text-xs text-gray-500"> */}
+                        <div className='flex grid-cols-11 justify-start py-4 '>
+                            {/* <div className="flex jusitfy-center w-[25px] rounded-lg mx-auto px-1 text-white"> </div> */}
+                            <div className="w-[50px] px-2 text-xs font-bold flex justify-start">F</div>
+                            <div className="w-[50px] px-[1px] text-xs text-gray-350">ES</div>
                             <div className="w-[400px] px-4 text-xs text-primary-blue">TASK</div>
                             <div className="w-[120px] px-4 text-xs">Assigned To</div>
                             {/* <div className="w-[120px] px-4 text-xs">Exp. Start</div>
@@ -290,10 +360,10 @@ export default function MyTrackerSubpage()  {
                             <div className="w-[100px] px-4 text-xs">Duration</div>
 
                             <div className="w-[130px] px-4 text-xs text-primary-blue font-bold">Actual Duration</div>
-                            <div className="w-[150px] px-4 text-xs text-primary-blue font-bold">Duration Slippage</div>
+                            <div className="w-[150px] px-4 text-xs text-primary-blue font-bold ">Duration Slippage</div>
                             <div className="w-[150px] px-4 text-xs text-primary-blue font-bold">Schedule Slippage</div>
                         </div>
-                        </div>
+                      {/* </div> */}
                     </div>
                 </div>
            
@@ -436,6 +506,7 @@ export default function MyTrackerSubpage()  {
 
 
             <div className="mt-4 px-2">
+              
                 <div className='flex flex-row'>
                     {renderTasks()}
                 </div>

@@ -96,7 +96,7 @@ export default function Analytics() {
         <div className="flex justify-center gap-12">
         <div className="flex p-4  justify-center py-24 ">
 
-          <div className="flex flex-col justify-center align-center w-auto bg-white pb-8 w-[600px] rounded-xl shadow-md border-2 w-[500px]">
+          <div className="flex flex-col justify-center align-center w-auto bg-white pb-8 w-[500px] rounded-xl shadow-md border-2 w-[500px]">
               <div className="flex justify-center text-[300px] linear-wipe">{projectCount}</div>
               <div className="flex justify-center text-[20px] italic pb-8">Total Projects Created By You</div>
               <div className="justify-center flex mb-8 p-4 mx-24 rounded-lg bg-primary-blue font-bold text-white">
@@ -106,9 +106,8 @@ export default function Analytics() {
 
 
         </div>
-        <div className="flex p-4  justify-center py-24 ">
-
-                <div className="flex flex-col justify-center align-center w-auto bg-white pb-8 w-[600px] rounded-xl shadow-md border-2 w-[500px]">
+        <div className="flex p-4  justify-center py-24 w-[500px]">
+                <div className="flex flex-col justify-center align-center w-auto bg-white pb-8  rounded-xl shadow-md border-2 w-[500px]">
                     <div className="flex justify-center text-[300px] linear-wipe">{projectCountAll}</div>
                     <div className="flex justify-center text-[20px] italic pb-8 px-24 text-center">Total Projects Created By All PathSync Users, Ever.  </div>
                     <div className="justify-center flex mb-8 p-4 mx-24 rounded-lg bg-white font-bold text-white">

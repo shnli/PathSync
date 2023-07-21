@@ -280,9 +280,63 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
       }
     }
     
+
+    const [showInfoTab, setShowInfoTab] = useState(false);
+
+    const handleClick = (event: any) => {
+      event.preventDefault();
+      setShowInfoTab(!showInfoTab); // Toggle the visibility of the info tab
+    };
   
     return (
     <div className=' pb-24'>
+
+
+      <div className='flex justify-end w-screen px-8 pt-8 gap-8 items-center pb-4'>
+        <div className='opacity-70 text-sm'>
+          <span className = "text-red-500 font-bold"><span className='font-bold'>ONLY click &ldquo;Save Project&rdquo; when you are ready to save your project.</span> Each save on this page will create a new project. </span>You may edit all details below at a later time by finding this project in &ldquo;My Trackers&rdquo; after saving it.
+        </div>
+        <a href="#infoTab" onClick={handleClick}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className=" opacity-80 w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+          </svg>  
+        </a>
+      </div>
+
+      {showInfoTab && (
+        <div className='absolute w-screen flex justify-center'>
+          <div id='infoTab' className='bg-white px-12 py-8 border-gray-200 border-2 rounded-xl shadow-md max-w-[900px] text-sm'>
+            {/* Add the content of your info tab here */}
+            <div className='pb-4 font-bold flex justify-center'>
+              What&apos;s on This Page?
+            </div>
+            <div className='pb-4 font-semibold flex justify-center text-red-500 text-sm text-center'>
+              IMPORTANT: Click Add Task to Add a New Task.
+            </div>
+            <div className='pb-4  text-primary-blue text-sm text-center flex justify-center gap-12'>
+              <div>S = Started Checkbox</div>
+              <div>F = Finished Checkbox</div>
+              <div>Assigned To = Technician In Charge of Task</div>
+            </div>
+            <div className='pb-4 text-primary-blue text-sm text-center flex justify-center gap-12'>
+              <div>Duration = Projected Time a Task Takes</div>
+              <div>Expected Start = Projected Start Date</div>
+              <div>Expected Finish = Projected End Date</div>
+            </div>
+            <div className='pb-4 text-primary-blue text-sm text-center flex justify-center gap-12'>
+              <div>Start = Actual Start</div>
+              <div>Finish = Actual Finish</div>
+              <div>Remarks = Comments</div>
+            </div>
+            <div className='pb-4 text-primary-blue text-sm text-center flex justify-center gap-12'>
+              <div>ES = Executing Side (Enterprise Responsible for Completion)</div>
+            </div>
+            
+          </div>
+        </div>
+      )}
+
+
       <div className='px-8 pt-4 pb-12 border-[1px] rounded-lg bg-white'>
         <div className="">
           <div className="grid w-screen justify-start rounded-xl ">

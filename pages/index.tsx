@@ -30,7 +30,7 @@ export default function Home() {
 
       <div className="flex flex-col justify-center items-center align-center h-full">
         <div className="text-7xl text-blue-600 font-semibold linear-wipe">
-          <p>Project Development Tracker</p>
+          <div>Project Development Tracker</div>
         </div>
         <div className="text-lg text-blue-600 pt-8">
           <p>

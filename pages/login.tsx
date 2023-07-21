@@ -69,10 +69,10 @@ export default function Login() {
             });
         })
         .catch(function (error) {
-            if (error.response && error.response.status === 401) {
+            if (error.response && error.response.status === 404) {
                 setError("Incorrect password. Please try again.");}
-            else if (error.response && error.response.status === 404){
-                setError("User not found, create an account."); 
+            else if (error.response && error.response.status === 401){
+                setError("User not found or Incorrect Password."); 
             }
             else {
                 setError("An error occurred. Please try again later."); // Set generic error message
