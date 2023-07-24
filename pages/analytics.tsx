@@ -114,13 +114,11 @@ export default function Analytics() {
                         <div className="text-white"> See Analytics for My Trackers</div>
                     </div>
                 </div>
-
-
         </div>
         </div>
         </div>
     </div>
-    
+
   )
 
 }

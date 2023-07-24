@@ -569,7 +569,26 @@ export default function MyTrackerSubpage()  {
               {outputStatus}
             </div>
 
-            <div className='flex justify-end w-screen px-12 pt-8 gap-8 items-center pb-4'>
+            <div className='flex justify-end px-12'>
+              <Link className='flex justify-center align-center rounded-lg text-white bg-primary-blue border-2 border-primary-blue text-sm px-4 w-48 py-2 hover:shadow-md hover:bg-white hover:text-primary-blue hover:border-primary-blue hover:border-2'
+                      href={{
+                      pathname: '/myTrackerAnalytics',
+                      query: {
+                          id: id,
+                          purchaseOrderCode: purchaseOrderCode,
+                          productModel: productModel,
+                          orderDate: orderDate,
+                          orderQuantity: orderQuantity,
+                          projectStartDate: projectStartDate
+                      },
+                      }}>
+                      <div className='font-bold'>
+                        Project Analytics
+                      </div>
+                </Link>
+              </div>
+
+            <div className='flex justify-end px-12 pt-8 gap-8 items-center pb-4'>
                 <div className='opacity-70 text-sm'>
                   Editing this page will update your current project.
                 </div>
