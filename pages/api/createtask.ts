@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 //CREATE TASK
 export default async function handler(req: any, res: any) {
-  console.log("hello")
   try {
     const {
       step,

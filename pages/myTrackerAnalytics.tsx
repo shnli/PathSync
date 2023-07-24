@@ -102,7 +102,7 @@ export default function MyTrackerSubpage()  {
         while (remainingDays > 0) {
           const currentDay = start.getDay(); // 0: Sunday, 1: Monday, ..., 6: Saturday
       
-          if (currentDay === 0 || currentDay === 6) {
+          if (currentDay === 5 || currentDay === 6) {
             weekends++;
           }
       
