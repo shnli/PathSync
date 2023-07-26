@@ -266,12 +266,12 @@ export default function MyTrackerSubpage()  {
                         <div className='pb-4 flex justify-center font-bold opacity-40'> Average Duration Slippage</div>
                         <div className='grid grid-cols-2 gap-8'>
                             <div className='flex flex-col justify-start gap-2'>
-                                <div className='flex justify-center text-3xl font-bold text-purple-800'>{calculateAverageDurationSlippage(sortedTasks, 'A Enterprise') + " days"}</div>
-                                <div className='flex justify-center text-sm italic text-purple-800'>A Enterprise</div>
+                                <div className='flex justify-center text-3xl font-bold text-pink-500'>{calculateAverageDurationSlippage(sortedTasks, 'A Enterprise') + " days"}</div>
+                                <div className='flex justify-center text-sm italic text-pink-500'>A Enterprise</div>
                             </div>
                             <div className='flex flex-col justify-end gap-2'>
-                                <div className='flex justify-center text-3xl font-bold text-orange-500'>{calculateAverageDurationSlippage(sortedTasks, 'B Enterprise') + " days"}</div>
-                                <div className='flex justify-center text-sm italic text-orange-500'>B Enterprise</div>
+                                <div className='flex justify-center text-3xl font-bold text-purple-800'>{calculateAverageDurationSlippage(sortedTasks, 'B Enterprise') + " days"}</div>
+                                <div className='flex justify-center text-sm italic text-purple-800'>B Enterprise</div>
                             </div>
                         </div>
                     </div>
@@ -282,12 +282,12 @@ export default function MyTrackerSubpage()  {
                         <div className='pb-4 flex justify-center font-bold opacity-40'> Average Schedule Slippage</div>
                         <div className='grid grid-cols-2 gap-8'>
                             <div className='flex flex-col justify-start gap-2'>
-                                <div className='flex justify-center text-3xl font-bold text-purple-800'>{calculateAverageScheduleSlippage(sortedTasks, 'A Enterprise') + " days"}</div>
-                                <div className='flex justify-center text-sm italic text-purple-800'>A Enterprise</div>
+                                <div className='flex justify-center text-3xl font-bold text-pink-500'>{calculateAverageScheduleSlippage(sortedTasks, 'A Enterprise') + " days"}</div>
+                                <div className='flex justify-center text-sm italic text-pink-500'>A Enterprise</div>
                             </div>
                             <div className='flex flex-col justify-end gap-2'>
-                                <div className='flex justify-center text-3xl font-bold text-orange-500'>{calculateAverageScheduleSlippage(sortedTasks, 'B Enterprise') + " days"}</div>
-                                <div className='flex justify-center text-sm italic text-orange-500'>B Enterprise</div>
+                                <div className='flex justify-center text-3xl font-bold text-purple-800'>{calculateAverageScheduleSlippage(sortedTasks, 'B Enterprise') + " days"}</div>
+                                <div className='flex justify-center text-sm italic text-purple-800'>B Enterprise</div>
                             </div>
                         </div>
                     </div>
@@ -385,7 +385,7 @@ export default function MyTrackerSubpage()  {
                         />
                         </div>
 
-                        <div className={`pt-1 w-[50px] px-4 text-xs border-r-[1px] border-r-gray-350 font-bold ${task.executingSide.charAt(0) === 'A' ? 'text-orange-500':'text-purple-500' }`}>
+                        <div className={`pt-1 w-[50px] px-4 text-xs border-r-[1px] border-r-gray-350 font-bold ${task.executingSide.charAt(0) === 'A' ? 'text-pink-500':'text-purple-500' }`}>
                             {task.executingSide.charAt(0)}
                         </div>
 

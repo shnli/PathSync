@@ -27,8 +27,10 @@ export default function NavbarSideIndex(props: NavbarProps) {
     return (
       <div className='absolute left-0 right-0 bg-white'>
         <div className="flex justify-between items-center px-16 pt-4">
-          <Link href="/" className="text-xl font-OP text-primary-blue font-bold">PathSync</Link>
-
+        <div className='flex justify-center items-center'>
+            <Link href="/"><img src="/logo.png" alt = "..." className='max-w-[45px]'></img></Link>
+            <Link href="/" className="text-xl font-OP text-primary-blue font-bold linear-wipe">PathSync</Link>
+          </div>
           <div className='flex justify-center w-full md:w-auto gap-6 text-primary-blue'>
             <div className='text-sm'>
               <Link href="/analytics">
@@ -53,8 +55,10 @@ export default function NavbarSideIndex(props: NavbarProps) {
     <div className='absolute left-0 right-0 bg-white'>
       <div >
         <div className="flex justify-between items-center px-16 pt-4">
-          <Link href="/" className="text-xl font-OP text-primary-blue font-bold">PathSync</Link>
-
+          <div className='flex justify-center items-center '>
+            <Link href="/"><img src="/logo.png" alt = "..." className='max-w-[45px]'></img></Link>
+            <Link href="/" className="text-xl font-OP text-primary-blue font-bold linear-wipe">PathSync</Link>
+          </div>
           <div className='flex justify-center w-full md:w-auto gap-6 text-primary-blue'>
             <div className='text-sm'>
               <Link href="/analytics">

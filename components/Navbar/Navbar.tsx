@@ -25,9 +25,11 @@ export default function Navbar(props: NavbarProps) {
   if (!props.userEmail) {
     return (
       <div className='absolute left-0 right-0 bg-white'>
-        <div className="flex justify-between items-center px-16 pt-4">
-          <Link href="/" className="text-xl font-OP text-primary-blue font-bold">PathSync</Link>
-
+        <div className="flex justify-between items-center px-16 pt-2">
+          <div className='flex justify-center items-center'>
+            <Link href="/"><img src="/logo.png" alt = "..." className='max-w-[45px]'></img></Link>
+            <Link href="/" className="text-xl font-OP text-primary-blue font-bold linear-wipe">PathSync</Link>
+          </div>
           <div className='flex justify-center w-full md:w-auto gap-6 text-primary-blue'>
             <div className='text-sm'>
               <Link href="/analytics">
@@ -42,7 +44,7 @@ export default function Navbar(props: NavbarProps) {
             <p className="text-sm hidden md:flex text-primary-blue "></p>
           </div>
         </div>
-        <hr className="mt-4 border-[1px] border-opacity-60 border-primary-blue" />
+        <hr className="mt-2 border-[1px] border-opacity-60 border-primary-blue" />
       </div>
     );
   } 
@@ -51,8 +53,10 @@ export default function Navbar(props: NavbarProps) {
     return (
       <div className='absolute left-0 right-0 bg-white'>
         <div className="flex justify-between items-center px-16 pt-4">
-          <Link href="/" className="text-xl font-OP text-primary-blue font-bold">PathSync</Link>
-
+        <div className='flex justify-center items-center'>
+            <Link href="/"><img src="/logo.png" alt = "..." className='max-w-[45px]'></img></Link>
+            <Link href="/" className="text-xl font-OP text-primary-blue font-bold linear-wipe">PathSync</Link>
+          </div>
           <div className='flex justify-center w-full md:w-auto gap-6 text-primary-blue'>
             <div className='text-sm'>
               <Link href="/analytics">

@@ -15,9 +15,13 @@ export default function NavbarSide() {
         <aside id="default-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
         <div className="h-full px-8 py-4 overflow-y-auto border-r-2">
             <ul className="space-y-4">
-                <Link href="/" className="flex items-center text-primary-blue font-bold">
+                {/* <Link href="/" className="flex items-center text-primary-blue font-bold">
                     <span className="ml-3 pt-8 pb-12 self-center text-xl font-semibold whitespace-nowrap ">PathSync</span>
-                </Link>
+                </Link> */}
+                <div className='flex justify-center items-center pt-8 pb-12'>
+                    <Link href="/"><img src="/logo.png" alt = "..." className='max-w-[45px]'></img></Link>
+                    <Link href="/" className="text-xl font-OP text-primary-blue font-bold linear-wipe">PathSync</Link>
+                </div>
 
                 <div className='ml-3 text-gray-400 '>Main Menu</div>
                 
