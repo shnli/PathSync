@@ -270,8 +270,8 @@ export default function MyTrackerSubpage()  {
                                 <div className='flex justify-center text-sm italic text-pink-500'>A Enterprise</div>
                             </div>
                             <div className='flex flex-col justify-end gap-2'>
-                                <div className='flex justify-center text-3xl font-bold text-purple-800'>{calculateAverageDurationSlippage(sortedTasks, 'B Enterprise') + " days"}</div>
-                                <div className='flex justify-center text-sm italic text-purple-800'>B Enterprise</div>
+                                <div className='flex justify-center text-3xl font-bold text-purple-700'>{calculateAverageDurationSlippage(sortedTasks, 'B Enterprise') + " days"}</div>
+                                <div className='flex justify-center text-sm italic text-purple-700'>B Enterprise</div>
                             </div>
                         </div>
                     </div>
@@ -286,8 +286,8 @@ export default function MyTrackerSubpage()  {
                                 <div className='flex justify-center text-sm italic text-pink-500'>A Enterprise</div>
                             </div>
                             <div className='flex flex-col justify-end gap-2'>
-                                <div className='flex justify-center text-3xl font-bold text-purple-800'>{calculateAverageScheduleSlippage(sortedTasks, 'B Enterprise') + " days"}</div>
-                                <div className='flex justify-center text-sm italic text-purple-800'>B Enterprise</div>
+                                <div className='flex justify-center text-3xl font-bold text-purple-700'>{calculateAverageScheduleSlippage(sortedTasks, 'B Enterprise') + " days"}</div>
+                                <div className='flex justify-center text-sm italic text-purple-700'>B Enterprise</div>
                             </div>
                         </div>
                     </div>
