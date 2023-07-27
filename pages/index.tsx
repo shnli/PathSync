@@ -15,7 +15,7 @@ export default function Home() {
     const storedEmail = localStorage.getItem("email");
     if (!storedEmail) {
       // Redirect the user to the login page
-      router.push("/login");
+      router.push("/welcome");
     } else {
       setEmail(storedEmail);
     }

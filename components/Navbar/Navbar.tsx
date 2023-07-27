@@ -19,7 +19,7 @@ export default function Navbar(props: NavbarProps) {
   function handleSignOut() {
     localStorage.removeItem("email");
     // Redirect user to the login page
-    router.push("/login");
+    router.push("/welcome");
   }
 
   if (!props.userEmail) {

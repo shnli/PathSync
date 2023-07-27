@@ -20,7 +20,7 @@ export default function NavbarSideIndex(props: NavbarProps) {
   function handleSignOut() {
     localStorage.removeItem("email");
     // Redirect user to the login page
-    router.push("/login");
+    router.push("/welcome");
   }
 
   if (!props.userEmail) {
@@ -60,11 +60,11 @@ export default function NavbarSideIndex(props: NavbarProps) {
             <Link href="/" className="text-xl font-OP text-primary-blue font-bold linear-wipe">PathSync</Link>
           </div>
           <div className='flex justify-center w-full md:w-auto gap-6 text-primary-blue'>
-            <div className='text-sm'>
+            {/* <div className='text-sm'>
               <Link href="/analytics">
                 <button className='no-underline hover:underline'>Analytics</button>
               </Link>
-            </div>
+            </div> */}
 
             <div className='text-sm hidden md:flex'>
               <button onClick={handleSignOut} className="no-underline hover:underline text-red-500 ">Sign Out</button>
