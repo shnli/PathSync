@@ -38,7 +38,7 @@ export default function Welcome(){
                 <div className=" flex flex-col text-white justify-center align center text-[20px]">
                     <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-36 py-12 rounded-xl  gap-8 ">
                         <div className="text-[30px] font-bold">
-                        What is Pathsync? 
+                        What is PathSync? 
                         </div>
                         <div>
                         PathSync is a web application designed to facilitate easy and effective project tracking between individuals and organizations working together on highly iterative and task oriented projects. By integrating project management and analysis functionalities, the program brings transparency to the entire collaborative process.
