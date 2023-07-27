@@ -82,7 +82,7 @@ export default function Welcome(){
                             <div>
                                 <ul className='flex flex-col list-disc pl-8 gap-2 linear-wipe1'>
                                     <li>Project Copy and Duplication</li>
-                                    <li>Edit Project Information</li>
+                                    <li>Edit Project Title Information</li>
                                     <li>Project Deletion</li>
                                     <li>Mobile Compatibility</li>
                                     <li>Linked User Accounts</li>
