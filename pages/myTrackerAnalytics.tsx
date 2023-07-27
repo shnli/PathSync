@@ -297,7 +297,10 @@ export default function MyTrackerSubpage()  {
 
             <div className='flex justify-end w-screen px-64 pt-8 gap-8 items-center pb-4'>
               <div className='flex justify-end text-xs text-gray-600'>
-                  *All Calculations Exclude Weekends
+                  *All Calculations Exclude Weekends.
+              </div>
+              <div className='opacity-70 text-sm'>
+                  <span className = "text-red-500 font-bold"><span className='font-bold'>For More Info About This Page:
               </div>
              
               <a href="#infoTab" onClick={handleClick}>
