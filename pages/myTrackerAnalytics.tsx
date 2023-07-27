@@ -300,7 +300,7 @@ export default function MyTrackerSubpage()  {
                   *All Calculations Exclude Weekends.
               </div>
               <div className='opacity-70 text-sm'>
-                  <span className = "text-red-500 font-bold"><span className='font-bold'>For More Info About This Page:
+                  For More Info About This Page:
               </div>
              
               <a href="#infoTab" onClick={handleClick}>
