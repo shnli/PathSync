@@ -593,7 +593,7 @@ export default function MyTrackerSubpage()  {
                   Editing this page will update your current project.
                 </div>
                 <div className='opacity-70 text-sm'>
-                  <span className = "text-red-500 font-bold"><span className='font-bold'>For More Info About This Page:
+                  For More Info About This Page:
                 </div>
                 <a href="#infoTab" onClick={handleClick}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className=" opacity-80 w-6 h-6">

@@ -297,7 +297,7 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
           <span className = "text-red-500 font-bold"><span className='font-bold'>ONLY click &ldquo;Save Project&rdquo; when you are ready to save your project.</span> Each save on this page will create a new project. </span>You may edit all details below at a later time by finding this project in &ldquo;My Trackers&rdquo; after saving it.
         </div>
         <div className='opacity-70 text-sm'>
-          <span className = "text-red-500 font-bold"><span className='font-bold'>For More Info:
+          For More Info:
         </div>
         <a href="#infoTab" onClick={handleClick}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className=" opacity-80 w-6 h-6">
