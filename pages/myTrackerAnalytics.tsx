@@ -365,6 +365,7 @@ export default function MyTrackerSubpage()  {
                             <div className="w-[130px] px-4 text-xs text-primary-blue font-bold">Actual Duration</div>
                             <div className="w-[150px] px-4 text-xs text-primary-blue font-bold ">Duration Slippage</div>
                             <div className="w-[150px] px-4 text-xs text-primary-blue font-bold">Schedule Slippage</div>
+                            <div className="w-[170px] px-4 text-xs ">Remarks</div>
                         </div>
                       {/* </div> */}
                     </div>
@@ -380,7 +381,7 @@ export default function MyTrackerSubpage()  {
                       onClick={() => handleRowClick(index)}
                      >
                     <div className='flex grid-cols-8 bg-white'>
-                        <div className="flex jusitfy-center w-[25px] bg-gray-300 rounded-lg px-1 text-white"> {task.step}
+                        <div className="flex jusitfy-center w-[25px] bg-gray-300 rounded-lg px-1 text-white max-h-[30px]"> {task.step}
                         </div>
 
                         <div className="w-[50px] px-4 font-bold">
@@ -393,7 +394,7 @@ export default function MyTrackerSubpage()  {
                         </div>
 
                         <div
-                            className='w-[400px] border-r-[1px] border-r-gray-350 px-4 text-xs'>
+                            className='w-[370px] border-r-[1px] border-r-gray-350 px-4 text-xs'>
                             {task.task}
                             
                         </div>
@@ -429,6 +430,13 @@ export default function MyTrackerSubpage()  {
                         <div className={`flex justify-center w-[150px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue  mx-2 font-bold ${task.scheduleSlippage > 0 ? 'text-red-500' : isNaN(Number(task.scheduleSlippage)) ? 'text-black opacity-20' : task.scheduleSlippage < 0 ? 'text-green-600' :''}`}>
                             {task.scheduleSlippage + " days"}
                         </div>
+
+                        <div style={{ height: '30px', overflow: 'auto' }}>
+                          <div className="flex justify-start w-[170px] text-xs border-[1px] p-1 rounded-lg hover:border-primary-blue mx-2">
+                            {task.remarks}
+                          </div>
+                        </div>
+
 
 
                         
