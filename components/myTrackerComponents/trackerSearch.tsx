@@ -45,16 +45,12 @@ export default function SearchTracker() {
     getUserData();
     }, []);
 
-    // const [tasks, setTasks] = useState([]);
-    
-    // const [trackerSearch, setTrackerSearch] = useState({
-    //     PMSearch: '',
-    //     POSearch: '',
-    // });
 
   useEffect(() => {
     if (userId) {
       // Fetch projects using the userId
+      console.log(userId)
+
       axios
         .get(`/api/getallprojects?userId=${userId}`)
         .then((response) => {
@@ -68,85 +64,13 @@ export default function SearchTracker() {
           setProjects(projectsWithOrderDate);
           console.log('Success');
         })
-        .catch((error) => console.error('Error retrieving projects:', error));
+        
+        .catch((error) => console.error('HELLO Error retrieving projects:', error));
     }
   }, [userId]);
-    
-    // useEffect(() => {
-    //     // Fetch projects
-    //     axios
-    //     .get(`/api/getallprojects?userId=${userId}`)
-    //     .then((response) => {
-    //     const projectsWithOrderDate = response.data.map((project: any) => ({
-    //         ...project,
-    //         orderDate: project.orderDate, 
-    //         orderQuantity: project.orderQuantity, 
-    //         startDate: project.startDate,
-    //         id: project.id
-    //     }));
-    //     setProjects(projectsWithOrderDate);
-    //     console.log('Success');        
 
-    //     })
-    //     .catch((error) => console.error('Error retrieving projects:', error));
-    
-    // }, []);
-
-  // const handlePOChange = (e: any) => {
-  //   const { name, value } = e.target;
-  //   setTrackerSearch((prevTrackerSearch) => ({
-  //     ...prevTrackerSearch,
-  //     POSearch: value,
-  //   }));
-  // };
-
-  // const handlePMChange = (e: any) => {
-  //   const { name, value } = e.target;
-  //   setTrackerSearch((prevTrackerSearch) => ({
-  //     ...prevTrackerSearch,
-  //     PMSearch: value,
-  //   }));
-  // };
-
-  // const handleNextClick = (e: any) => {
-  //   e.preventDefault();
-  //   if (trackerSearch.POSearch && trackerSearch.PMSearch) {
-  //     setShowOldProject(true);
-  //   } else {
-  //     alert('Please Search a Product Model and Purchase Order');
-  //   }
-  // };
 
   //////////////////////////////
-
-  // const handleDeleteProject = async (index: number) => {
-  //   const projectToDelete = projects[index];
-  
-  //   try {
-  //     await axios.post('/api/deleteproject', { id: projectToDelete.id }); // Pass 'id' instead of 'taskId'
-  //     setProjects(prevProject => {
-  //       const newProjects = [...prevProject];
-  //       newProjects.splice(index, 1); // Remove the task at the specified index
-  //       return newProjects;
-  //     });
-  //     console.log('Project deleted successfully!');
-  //   } catch (error) {
-  //     console.error('Error deleting project:', error);
-  //   }
-  // };
-
-  // const handleDeleteProject = async (projectId:any) => {
-  //   try {
-  //     await axios.post('/api/deleteproject', { id: projectId });
-  //     setProjects(prevProjects => {
-  //       // Filter out the project with the matching ID
-  //       return prevProjects.filter(project => project.id !== projectId);
-  //     });
-  //     console.log('Project deleted successfully!');
-  //   } catch (error) {
-  //     console.error('Error deleting project:', error);
-  //   }
-  // };
 
   const [tasks, setTasks] = useState<{
     id: number;

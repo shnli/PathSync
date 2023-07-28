@@ -272,7 +272,7 @@ export default function MyTrackerSubpage()  {
             <div className='pt-2 space-y-1 '>
               {nextTasksDue.length === 0 ? (
                 <div className= "flex gap-2 justify-center items-center">
-                  <div className="font-bold opacity-30 text-sm">Congratulations, you've completed all your tasks (with provided start dates) !</div>
+                  <div className="font-bold opacity-30 text-sm">Congratulations, you&apos;ve completed all your tasks (with provided start dates) !</div>
                   <img src="/celebrate2.png" className= "w-6 h-6"></img>
                 </div>
               ) : (

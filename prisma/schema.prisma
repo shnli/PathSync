@@ -36,7 +36,6 @@ model Project {
   orderQuantity String
   orderDate String
   projectStartDate String
-  status String
 
   author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
