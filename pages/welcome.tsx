@@ -36,7 +36,7 @@ export default function Welcome(){
 
             <div id="about" className="pb-48 flex flex-col gap-8 px-36">
                 <div className=" flex flex-col text-white justify-center align center text-[20px]">
-                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-36 py-12 rounded-xl  gap-8 ">
+                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-36 py-12 rounded-xl  gap-8 opacity-90">
                         <div className="text-[30px] font-bold">
                         What is PathSync? 
                         </div>
@@ -53,15 +53,18 @@ export default function Welcome(){
                 </div>
 
                 <div className="flex justify-between items-center gap-8 text-white text-[20px]">
-                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 h-[500px]">
-                        <div className="flex flex-col gap-4 text-start">
-                            <div className="font-bold text-[30px]">
-                                Features
+                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 h-[600px]">
+                        <div className="flex flex-col gap-4 text-start opacity-90">
+                            <div className="flex gap-4 justify-center items-center">
+                                <div className="font-bold text-[30px]">
+                                    Key Features
+                                </div>
+                                <img src="/spark.png" className= "w-10 h-10"></img>
                             </div>
                             <div id="about">
                                 <ul className='flex flex-col list-disc pl-8 gap-2'>
                                     <li>Project Saving and Tracking</li>
-                                    <li>Expected Start & End V.S. &ldquo;Actual Start&rdquo; and &ldquo;Actual End&rdquo;</li>
+                                    <li>Expected Start & End vs. Actual Start & End</li>
                                     <li>Project Completion Percentage</li>
                                     <li>Actual Task Duration Calculation</li>
                                     <li>Start Dates Delay (Schedule Slippage) Calculation</li>
@@ -74,24 +77,49 @@ export default function Welcome(){
                             </div>
                         </div>
                     </div>
-                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 h-[500px]">
+
+                    
+                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 h-[600px]">
+                        
                         <div className="flex flex-col gap-4 text-start">
-                            <div className="font-bold text-[30px] linear-wipe1">
-                                Next Updates
+                            <div className="flex gap-4 justify-center items-center">
+                                <div className="font-bold text-[30px] linear-wipe1">
+                                    Recent Updates
+                                </div>
+                                <img src="/sparkle.png" className= "w-10 h-10"></img>
                             </div>
                             <div>
                                 <ul className='flex flex-col list-disc pl-8 gap-2 linear-wipe1'>
-                                    <li>Project Copy and Duplication</li>
-                                    <li>Edit Project Title Information</li>
-                                    <li>Project Deletion</li>
-                                    <li>Mobile Compatibility</li>
-                                    <li>Linked User Accounts</li>
-                                    <li>Faster Loading Time</li>
-                                    <li>Exporting to Excel</li>
+                                    <div> →  Upcoming Tasks</div>
+                                    <div> →  Project Deletion</div>
                                 </ul>
-                                </div>
                             </div>
                         </div>
+                     </div>
+
+                     <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 h-[600px]">
+                        
+                        <div className="flex flex-col gap-4 text-start">
+                            <div className="flex gap-4 justify-center items-center">
+                                <div className="font-bold text-[30px] linear-wipe1">
+                                    Next Updates
+                                </div>
+                                <img src="/next.png" className= "w-10 h-10"></img>
+                            </div>
+                            <div>
+                                <ul className='flex flex-col list-disc pl-8 gap-2 linear-wipe1'>
+                                    <div> →  Project Copy and Duplication</div>
+                                    <div> →  Edit Project Title Information</div>
+                                    <div> →  Mobile Compatibility</div>
+                                    <div> →  Linked User Accounts</div>
+                                    <div> →  Faster Loading Time</div>
+                                    <div> →  Exporting to Excel</div>
+                                </ul>
+                            </div>
+                        </div>
+                    
+                     </div>
+
                     </div>
                 </div>
 

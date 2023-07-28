@@ -36,6 +36,7 @@ model Project {
   orderQuantity String
   orderDate String
   projectStartDate String
+  status String
 
   author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
@@ -60,9 +61,10 @@ model Task {
   remarks String
   executingSide String
 
-
   project        Project  @relation(fields: [projectId], references: [id])  
   projectId      Int      // Assuming projectId references the ID field of the Project model
 
 }
+
+
 

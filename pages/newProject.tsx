@@ -16,8 +16,6 @@ export default function NewProject() {
             <div className= "flex justify-center font-bold text-gray-500 pt-8 text-xl pb-4">
                 <p> Basic Project Information</p>
             </div>
-            
-
             <PrimaryData></PrimaryData>
             </div>
         </div>

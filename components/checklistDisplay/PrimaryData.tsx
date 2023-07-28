@@ -116,7 +116,7 @@ export default function PrimaryData() {
                 <form>
                 <div className="mb-8">
                     <label className="block mb-1 font-medium">
-                    Product Model Code
+                    Product Model
                     </label>
                     <input
                     value={formData.model}
@@ -130,7 +130,7 @@ export default function PrimaryData() {
 
                 <div className="mb-8">
                     <label className="block mb-1 font-medium">
-                    Purchase Order Code
+                    Purchase Order
                     </label>
                     <input
                     value={formData.purchaseOrder}

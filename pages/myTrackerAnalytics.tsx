@@ -13,8 +13,8 @@ type Task = PrismaTask & {
 
   };
 
-
 export default function MyTrackerSubpage()  {
+    
     const router = useRouter();
     const { id, purchaseOrderCode, productModel, orderDate, orderQuantity, projectStartDate } = router.query;
     const projectId = Number(id); 
@@ -50,7 +50,8 @@ export default function MyTrackerSubpage()  {
         scheduleSlippage: number,
         durationSlippage: number
 
-        }[]>([]);
+      }[]>([]);
+
 
     const [outputStatus, setOutputStatus] = useState<string>('');
 
@@ -115,116 +116,117 @@ export default function MyTrackerSubpage()  {
         return actualDuration;
       };
 
-    useEffect(() => {
-      console.log(id);
+      useEffect(() => {
+        console.log(id);
     
-      if (id) {
-        setOutputStatus("Loading...");
-        // Fetch tasks
-        axios
-          .get(`/api/getalltasksforaproject?id=${id}`)
-          .then((response) => {
-            const tasksWithData = response.data.map((task: any) => ({
-              ...task,
-              projectId: task.projectId,
-              step: task.step,
-              startCheck: task.startCheck,
-              finishCheck: task.finishCheck,
-              task: task.task,
-              lead: task.lead,
-              duration: task.duration,
-              expectedFinish: task.expectedFinish,
-              expectedStart: task.expectedStart,
-              start: task.start,
-              finish: task.finish,
-              remarks: task.remarks,
-              executingSide: task.executingSide, // Fix: Access executingSide from task object
+        if (id) {
+          setOutputStatus("Loading...");
+          // Fetch tasks
+          axios
+            .get(`/api/getalltasksforaproject?id=${id}`)
+            .then((response) => {
+              const tasksWithData = response.data.map((task: any) => ({
+                ...task,
+                projectId: task.projectId,
+                step: task.step,
+                startCheck: task.startCheck,
+                finishCheck: task.finishCheck,
+                task: task.task,
+                lead: task.lead,
+                duration: task.duration,
+                expectedFinish: task.expectedFinish,
+                expectedStart: task.expectedStart,
+                start: task.start,
+                finish: task.finish,
+                remarks: task.remarks,
+                executingSide: task.executingSide, // Fix: Access executingSide from task object
+                
+                actualDuration: calculateActualDuration(new Date(task.start), new Date(task.finish)),
+
+              //   actualDuration: Math.floor(((new Date(task.finish).getTime() - new Date(task.start).getTime()) / (1000 * 60 * 60 * 24))+1),
+                scheduleSlippage: Math.floor(((new Date(task.start).getTime() - new Date(task.expectedStart).getTime()) / (1000 * 60 * 60 * 24))),
+              //   durationSlippage: Math.floor(Math.floor(((new Date(task.finish).getTime() - new Date(task.start).getTime()) / (1000 * 60 * 60 * 24))+1) - parseInt(task.duration))
+                durationSlippage: Math.floor(calculateActualDuration(new Date(task.start), new Date(task.finish)) - parseInt(task.duration))
+
+                
+
+              }));
               
-              actualDuration: calculateActualDuration(new Date(task.start), new Date(task.finish)),
-
-            //   actualDuration: Math.floor(((new Date(task.finish).getTime() - new Date(task.start).getTime()) / (1000 * 60 * 60 * 24))+1),
-              scheduleSlippage: Math.floor(((new Date(task.start).getTime() - new Date(task.expectedStart).getTime()) / (1000 * 60 * 60 * 24))),
-            //   durationSlippage: Math.floor(Math.floor(((new Date(task.finish).getTime() - new Date(task.start).getTime()) / (1000 * 60 * 60 * 24))+1) - parseInt(task.duration))
-              durationSlippage: Math.floor(calculateActualDuration(new Date(task.start), new Date(task.finish)) - parseInt(task.duration))
-
-              
-
-            }));
-            
-            setTasks(tasksWithData);
-            console.log('Success');
-            setOutputStatus("Task list has been loaded.");
-          })
-          .catch((error) => console.error('BONK Error retrieving tasks:', error));
-      } 
-      else {
-        setOutputStatus("Task list could not be loaded.");
-      }
-    }, [id]);
+              setTasks(tasksWithData);
+              console.log('Success');
+              setOutputStatus("Task list has been loaded.");
+            })
+            .catch((error) => console.error('BONK Error retrieving tasks:', error));
+        } 
+        else {
+          setOutputStatus("Task list could not be loaded.");
+        }
+      }, [id]
+    );
 
 
     const calculatePercentageCompleted = (tasks: Task[]) => {
-        const finishedTasks = tasks.filter(task => task.finishCheck);
-        const percentageCompleted = (finishedTasks.length / tasks.length) * 100;
-        return isNaN(percentageCompleted) ? 0 : percentageCompleted;
-      };
+      const finishedTasks = tasks.filter(task => task.finishCheck);
+      const percentageCompleted = (finishedTasks.length / tasks.length) * 100;
+      return isNaN(percentageCompleted) ? 0 : percentageCompleted;
+    };
 
-      const renderCircleChart = (percentage: number) => {
-        const radius = 40;
-        const circumference = 2 * Math.PI * radius;
-        const offset = circumference - (circumference * percentage) / 100;
-    
-        return (
-            <div>
-              <svg className='w-[300px] h-[300px]' viewBox="0 0 100 100">
-              <defs>
-                    <linearGradient id="circle-gradient" gradientTransform="rotate(90)">
-                    <stop offset="0%" stopColor="#2374F3" />
-                    <stop offset="400%" stopColor="#57c7d4" />
-                    </linearGradient>
-                </defs>
-                <circle
-                  cx="50"
-                  cy="50"
-                  r={radius}
-                  style={{
-                    fill: 'none',
-                    stroke: '#e5e5e5',
-                    strokeWidth: '5px',
-                  }}
-                ></circle>
-                <circle
-                  cx="50"
-                  cy="50"
-                  r={radius}
-                  style={{
-                    fill: 'none',
-                    stroke: 'url(#circle-gradient)',
-                    strokeWidth: '5px',
-                    strokeDasharray: circumference,
-                    strokeDashoffset: offset,
-                    transition: 'stroke-dashoffset 0.9s ease',
-                  }}
-                ></circle>
-                <text
-                  x="50"
-                  y="45"
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  style={{
-                    fontSize: '10px',
-                    fill: 'url(#circle-gradient)',
-                    fontWeight: 'bold',
-                  }}
-                >
-                    <tspan>{percentage.toFixed(2)}%</tspan>
-                    <tspan x="50" dy="1.2em" style={{ fontSize: '10px', fill: 'url(#circle-gradient)' }}>Complete</tspan>
-                </text>
-              </svg>
-            </div>
-          );
-          
-      };
+    const renderCircleChart = (percentage: number) => {
+      const radius = 40;
+      const circumference = 2 * Math.PI * radius;
+      const offset = circumference - (circumference * percentage) / 100;
+  
+      return (
+          <div>
+            <svg className='w-[300px] h-[300px]' viewBox="0 0 100 100">
+            <defs>
+                  <linearGradient id="circle-gradient" gradientTransform="rotate(90)">
+                  <stop offset="0%" stopColor="#2374F3" />
+                  <stop offset="400%" stopColor="#57c7d4" />
+                  </linearGradient>
+              </defs>
+              <circle
+                cx="50"
+                cy="50"
+                r={radius}
+                style={{
+                  fill: 'none',
+                  stroke: '#e5e5e5',
+                  strokeWidth: '5px',
+                }}
+              ></circle>
+              <circle
+                cx="50"
+                cy="50"
+                r={radius}
+                style={{
+                  fill: 'none',
+                  stroke: 'url(#circle-gradient)',
+                  strokeWidth: '5px',
+                  strokeDasharray: circumference,
+                  strokeDashoffset: offset,
+                  transition: 'stroke-dashoffset 0.9s ease',
+                }}
+              ></circle>
+              <text
+                x="50"
+                y="45"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                style={{
+                  fontSize: '10px',
+                  fill: 'url(#circle-gradient)',
+                  fontWeight: 'bold',
+                }}
+              >
+                  <tspan>{percentage.toFixed(2)}%</tspan>
+                  <tspan x="50" dy="1.2em" style={{ fontSize: '10px', fill: 'url(#circle-gradient)' }}>Complete</tspan>
+              </text>
+            </svg>
+          </div>
+        );
+        
+    };
 
     const [showInfoTab, setShowInfoTab] = useState(false);
 
@@ -236,88 +238,72 @@ export default function MyTrackerSubpage()  {
     const today = new Date();
 
     const renderNextTasksDue = () => {
-      // const unfinishedTasks = tasks.filter(task => !task.finishCheck);
-      // const sortedTasks = [...unfinishedTasks].sort((a, b) => a.step - b.step);
-      // const nextTasksDue = sortedTasks.slice(0, 2);
-  
-        const unfinishedTasks = tasks.filter(task => !task.finishCheck);
-        const sortedTasks = [...unfinishedTasks].sort((a, b) => {
-          const timestampA = new Date(a.expectedStart).getTime();
-          const timestampB = new Date(b.expectedStart).getTime();
-
-          return timestampA - timestampB;
-        });
-
-    const nextTasksDue = sortedTasks.slice(0, 2);
-
+      
+      const unfinishedTasks = tasks.filter(task => task.expectedStart && !task.finishCheck);
+      const sortedTasks = [...unfinishedTasks].sort((a, b) => {
+        const timestampA = new Date(a.expectedStart).getTime();
+        const timestampB = new Date(b.expectedStart).getTime();
+        return timestampA - timestampB;
+      });
+    
+      const nextTasksDue = sortedTasks.slice(0, 3);
+    
+      const todayString = today.toISOString().slice(0, 10);
     
       return (
         <div className="pb-8">
           <div className='bg-white flex flex-col justify-center w-screen'>
-                <div className= "flex px-24 pb-2 font-bold text-primary-blue opacity-60">Upcoming Tasks</div>
-
-                <div className='flex justify-center'>
-                    <div className=" border-b-2">
-                    {/* <div className="grid justify-start py-2 px-4 rounded-xl font-semibold text-xs text-gray-500"> */}
-                        <div className='flex grid-cols-11 justify-start py-4 '>
-                            {/* <div className="flex jusitfy-center w-[25px] rounded-lg mx-auto px-1 text-white"> </div> */}
-                            <div className="w-[60px] px-4 text-xs text-gray-350">ES</div>
-                            <div className="w-[350px] px-4 text-xs text-primary-blue">TASK</div>
-                            <div className="w-[120px] px-4 text-xs">Assigned To</div>
-                            {/* <div className="w-[120px] px-4 text-xs">Exp. Start</div>
-                            <div className="w-[120px] px-4 text-xs">Exp. Finish</div> */}
-                            <div className="w-[200px] px-4 text-xs ">Expected Start</div>
-                            <div className="w-[200px] px-4 text-xs ">Expected Finish</div>
-                            <div className="w-[100px] px-4 text-xs">Duration</div>
-
-                        </div>
-                      {/* </div> */}
-                    </div>
+            <div className="flex px-24 pb-2 font-bold text-primary-blue opacity-60">Upcoming Tasks</div>
+            <div className='flex justify-center'>
+              <div className="border-b-2">
+                <div className='flex grid-cols-11 justify-start py-4 '>
+                  <div className="w-[60px] px-4 text-xs text-gray-350">ES</div>
+                  <div className="w-[350px] px-4 text-xs text-primary-blue">TASK</div>
+                  <div className="w-[120px] px-4 text-xs">Assigned To</div>
+                  <div className="w-[200px] px-4 text-xs ">Expected Start</div>
+                  <div className="w-[200px] px-4 text-xs ">Expected Finish</div>
+                  <div className="w-[100px] px-4 text-xs">Duration</div>
                 </div>
               </div>
-              
-            <div className='flex justify-center'>
-              <div className='pt-2 space-y-1 '>
-                {nextTasksDue.map((task, index) => (
-                <div key={index} className="flex justify-between grid-cols-11 justify-start py-2 px-4">
-                  <div className='flex grid-cols-8 bg-white'>
-                        <div className="flex jusitfy-center w-[25px] bg-gray-300 rounded-lg px-1 text-white max-h-[30px]"> {task.step}
-                        </div>
-
-         
-
-                        <div className={`pt-1 w-[50px] px-4 text-xs border-r-[1px] border-r-gray-350 font-bold ${task.executingSide.charAt(0) === 'A' ? 'text-pink-500':'text-purple-500' }`}>
-                            {task.executingSide.charAt(0)}
-                        </div>
-
-                        <div
-                            className='w-[370px] border-r-[1px] border-r-gray-350 px-4 text-xs'>
-                            {task.task}
-                            
-                        </div>
-                    
-                        
-                        <div className='pt-1 w-[120px] px-4 text-xs overflow-hidden border-r-[1px] border-r-gray-350 '>
-                            {task.lead}
-                        </div>
-
-
-                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedStart) < today ? 'text-red-500' : '' }`}>
-                            {task.expectedStart}
-                        </div>
-
-                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedFinish) < today ? 'text-red-500' : '' }`}>
-                            {task.expectedFinish}
-                        </div>
-
-                        <div
-                            className="w-[100px]  px-4 text-xs">
-                            {task.duration + " days"} 
-                        </div>
-                        
-                      </div>
+            </div>
+          </div>
+    
+          <div className='flex justify-center'>
+            <div className='pt-2 space-y-1 '>
+              {nextTasksDue.length === 0 ? (
+                <div className= "flex gap-2 justify-center items-center">
+                  <div className="font-bold opacity-30 text-sm">Congratulations, you've completed all your tasks (with provided start dates) !</div>
+                  <img src="/celebrate2.png" className= "w-6 h-6"></img>
                 </div>
-              ))}
+              ) : (
+                <>
+                  {nextTasksDue.map((task, index) => (
+                    <div key={index} className="flex justify-between grid-cols-11 justify-start py-2 px-4">
+                      <div className='flex grid-cols-8 bg-white'>
+                        <div className="flex justify-center w-[25px] bg-gray-300 rounded-lg px-1 text-white max-h-[30px]"> {task.step}</div>
+                        <div className={`pt-1 w-[50px] px-4 text-xs border-r-[1px] border-r-gray-350 font-bold ${task.executingSide.charAt(0) === 'A' ? 'text-pink-500' : 'text-purple-500' }`}>
+                          {task.executingSide.charAt(0)}
+                        </div>
+                        <div className='w-[370px] border-r-[1px] border-r-gray-350 px-4 text-xs'>
+                          {task.task}
+                        </div>
+                        <div className='pt-1 w-[120px] px-4 text-xs overflow-hidden border-r-[1px] border-r-gray-350 '>
+                          {task.lead}
+                        </div>
+                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedStart).toISOString().slice(0, 10) < todayString ? 'text-red-500' : new Date(task.expectedStart).toISOString().slice(0, 10) === todayString ? 'text-primary-blue' : '' }`}>
+                          {task.expectedStart}
+                        </div>
+                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedFinish).toISOString().slice(0, 10) < todayString ? 'text-red-500' : new Date(task.expectedFinish).toISOString().slice(0, 10) === todayString ? 'text-primary-blue' : '' }`}>
+                          {task.expectedFinish}
+                        </div>
+                        <div className="w-[100px] px-4 text-xs">
+                          {task.duration + " days"} 
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -325,7 +311,6 @@ export default function MyTrackerSubpage()  {
     };
 
     const renderTasks = () => {
-      
         const sortedTasks = [...tasks].sort((a, b) => a.step - b.step);
         return (
           <div className='flex flex-col'>
@@ -457,14 +442,14 @@ export default function MyTrackerSubpage()  {
                             <div className="w-[130px] px-4 text-xs">Assigned To</div>
                             {/* <div className="w-[120px] px-4 text-xs">Exp. Start</div>
                             <div className="w-[120px] px-4 text-xs">Exp. Finish</div> */}
-                            <div className="w-[120px] px-4 text-xs ">Start</div>
+                            <div className="w-[110px] px-4 text-xs ">Start</div>
                             <div className="w-[120px] px-4 text-xs ">Finish</div>
                             <div className="w-[110px] px-4 text-xs">Duration</div>
 
-                            <div className="w-[130px] px-4 text-xs text-primary-blue font-bold">Actual Duration</div>
+                            <div className="w-[150px] px-4 text-xs text-primary-blue font-bold">Actual Duration</div>
                             <div className="w-[150px] px-4 text-xs text-primary-blue font-bold ">Duration Slippage</div>
-                            <div className="w-[150px] px-4 text-xs text-primary-blue font-bold">Schedule Slippage</div>
-                            <div className="w-[190px] px-4 text-xs ">Remarks</div>
+                            <div className="w-[160px] px-4 text-xs text-primary-blue font-bold">Schedule Slippage</div>
+                            <div className="w-[140px] px-4 text-xs ">Remarks</div>
                         </div>
                       {/* </div> */}
                     </div>

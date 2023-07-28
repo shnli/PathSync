@@ -18,30 +18,31 @@ export default function SearchTracker() {
     
     }[]>([]);
 
-    const router = useRouter();
-    
-    const [userId, setUserId] = useState<number | null>(null);
   
+  const router = useRouter();
+  
+  const [userId, setUserId] = useState<number | null>(null);
     
-    const getUserData = async () => {
-      try {
-        const storedEmail = localStorage.getItem("email");
-        const storedPassword = localStorage.getItem("password");
+  const getUserData = async () => {
+    try {
+      const storedEmail = localStorage.getItem("email");
+      const storedPassword = localStorage.getItem("password");
 
-        if (!storedEmail) {
-          router.push("/login");
-        } else {
-          const response = await axios.post('/api/auth/me', { email: storedEmail , password: storedPassword });
-          const userData = response.data;
-          console.log(userData.id);
-          setUserId(userData.id);
-        }
-      } catch (error) {
-        console.error('Hello Error fetching user data:', error);
+      if (!storedEmail) {
+        router.push("/login");
+      } else {
+        const response = await axios.post('/api/auth/me', { email: storedEmail , password: storedPassword });
+        const userData = response.data;
+        console.log(userData.id);
+        setUserId(userData.id);
       }
-    };
-    useEffect(() => {
-      getUserData();
+    } catch (error) {
+      console.error('Hello Error fetching user data:', error);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
     }, []);
 
     // const [tasks, setTasks] = useState([]);
@@ -51,25 +52,25 @@ export default function SearchTracker() {
     //     POSearch: '',
     // });
 
-    useEffect(() => {
-      if (userId) {
-        // Fetch projects using the userId
-        axios
-          .get(`/api/getallprojects?userId=${userId}`)
-          .then((response) => {
-            const projectsWithOrderDate = response.data.map((project: any) => ({
-              ...project,
-              orderDate: project.orderDate,
-              orderQuantity: project.orderQuantity,
-              startDate: project.startDate,
-              id: project.id,
-            }));
-            setProjects(projectsWithOrderDate);
-            console.log('Success');
-          })
-          .catch((error) => console.error('Error retrieving projects:', error));
-      }
-    }, [userId]);
+  useEffect(() => {
+    if (userId) {
+      // Fetch projects using the userId
+      axios
+        .get(`/api/getallprojects?userId=${userId}`)
+        .then((response) => {
+          const projectsWithOrderDate = response.data.map((project: any) => ({
+            ...project,
+            orderDate: project.orderDate,
+            orderQuantity: project.orderQuantity,
+            startDate: project.startDate,
+            id: project.id,
+          }));
+          setProjects(projectsWithOrderDate);
+          console.log('Success');
+        })
+        .catch((error) => console.error('Error retrieving projects:', error));
+    }
+  }, [userId]);
     
     // useEffect(() => {
     //     // Fetch projects
@@ -149,11 +150,9 @@ export default function SearchTracker() {
 
   const [tasks, setTasks] = useState<{
     id: number;
-    
     step: number,
     startCheck: Boolean,
     finishCheck: Boolean,
-    
     task: string,
     lead: string,
     duration:string,
@@ -163,69 +162,66 @@ export default function SearchTracker() {
     finish:string,
     remarks:string,
     executingSide:string,
-
     projectId: number
     }[]>([]);
 
   
+  const handleDeleteProject = async (index: number) => {
+    const projectIndex = index ;
+    const projectToDelete = projects[projectIndex];
+
+    const confirmed = window.confirm(`Are you sure you want to delete ${projectToDelete.productModel}, ${projectToDelete.purchaseOrderCode}? These changes can not be reversed.`);
+    if (!confirmed) {
+      return; // User canceled the deletion
+    }
   
-    const handleDeleteProject = async (index: number) => {
-      const projectToDelete = projects[index - 1];
-    
-      try {
-        const response = await axios.get(`/api/getalltasksforaproject?id=${projectToDelete.id}`);
-        const tasksWithData = response.data.map((task: any) => ({
-          ...task,
-          projectId: task.projectId,
-          step: task.step,
-          startCheck: task.startCheck,
-          finishCheck: task.finishCheck,
-          task: task.task,
-          lead: task.lead,
-          duration: task.duration,
-          expectedFinish: task.expectedFinish,
-          expectedStart: task.expectedStart,
-          start: task.start,
-          finish: task.finish,
-          remarks: task.remarks,
-          executingSide: task.executingSide // Fix: Access executingSide from task object
-        }));
-        setTasks(tasksWithData);
-        console.log('Tasks fetched successfully');
-      } catch (error) {
-        console.error('Error retrieving tasks:', error);
-      }
-    
-      // Delete all tasks in the project first
-      try {
-        await Promise.all(tasks.map(async (task) => {
-          await axios.post('/api/deletetask', { id: task.id });
-          console.log('Task deleted successfully!');
-        }));
-      } catch (error) {
-        console.error('Error deleting task:', error);
-      }
-    
-      // Now delete the project
-      try {
-        await axios.post('/api/deleteproject', { id: projectToDelete.id });
-        setProjects(prevProjects => {
-          const newProjects = [...prevProjects];
-          newProjects.splice(index, 1); // Remove the project at the specified index
-          return newProjects;
-        });
-        console.log('Project deleted successfully!');
-      } catch (error) {
-        console.error('Error deleting Project:', error);
-      }
-    };
-// const handleDeleteProject = (index: number) => {
-//   setProjects(prevData => {
-//     const newData = [...prevData];
-//     newData.splice(index, 1); // Remove the task at the specified index
-//     return newData;
-//   });
-// };
+    try {
+      const response = await axios.get(`/api/getalltasksforaproject?id=${projectToDelete.id}`);
+      const tasksWithData = response.data.map((task: any) => ({
+        ...task,
+        projectId: task.projectId,
+        step: task.step,
+        startCheck: task.startCheck,
+        finishCheck: task.finishCheck,
+        task: task.task,
+        lead: task.lead,
+        duration: task.duration,
+        expectedFinish: task.expectedFinish,
+        expectedStart: task.expectedStart,
+        start: task.start,
+        finish: task.finish,
+        remarks: task.remarks,
+        executingSide: task.executingSide // Fix: Access executingSide from task object
+      }));
+      setTasks(tasksWithData);
+      console.log('Tasks fetched successfully');
+    } catch (error) {
+      console.error('Error retrieving tasks:', error);
+    }
+  
+    // Delete all tasks in the project first
+    try {
+      await Promise.all(tasks.map(async (task) => {
+        await axios.post('/api/deletetask', { id: task.id });
+        console.log('Task deleted successfully!');
+      }));
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
+  
+    // Now delete the project
+    try {
+      await axios.post('/api/deleteproject', { id: projectToDelete.id });
+      setProjects(prevProjects => {
+        const newProjects = [...prevProjects];
+        newProjects.splice(index, 1); // Remove the project at the specified index
+        return newProjects;
+      });
+      console.log('Project deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting Project:', error);
+    }
+  };
 
   
   const renderProjects = () => {
@@ -289,11 +285,11 @@ export default function SearchTracker() {
                       </Link>
 
                     <div className='flex justify-end'>
-                        {/* <button onClick={() => handleDeleteProject(index)}>
+                        <button onClick={() => handleDeleteProject(projects.length - 1 - index)}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="red" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                        </button> */}
+                        </button>
                     </div>   
                   </div>
               </div>
@@ -305,8 +301,7 @@ export default function SearchTracker() {
   };
   
 
-  return (
-    
+  return ( 
     <div className="mb-8">
       {/* <label htmlFor="model" className="block mb-1 font-medium text-gray-500">
         Search Projects *Under Construction
