@@ -28,7 +28,7 @@ export default function PrimaryData() {
             });
         }
         else {
-            alert("Please make sure you filled in the Model Code and Purchase Order Code fields.");
+            alert("Please make sure you filled in the Project Name and Project Code Code fields.");
         }
       };
 
@@ -116,7 +116,7 @@ export default function PrimaryData() {
                 <form>
                 <div className="mb-8">
                     <label className="block mb-1 font-medium">
-                    Product Model
+                    Project Name
                     </label>
                     <input
                     value={formData.model}
@@ -130,7 +130,7 @@ export default function PrimaryData() {
 
                 <div className="mb-8">
                     <label className="block mb-1 font-medium">
-                    Purchase Order
+                    Project Code
                     </label>
                     <input
                     value={formData.purchaseOrder}

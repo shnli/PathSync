@@ -496,7 +496,7 @@ export default function MyTrackerSubpage()  {
                 <div className="grid grid-cols-3 rounded-lg overflow-hidden border shadow-md bg-white">
 
                   <div className="flex space-x-4 py-4 px-4">
-                    <div className="text-primary-blue font-bold">Product Model:</div>
+                    <div className="text-primary-blue font-bold">Project Name:</div>
                     <input
                         className=''
                         type="text"
@@ -504,7 +504,7 @@ export default function MyTrackerSubpage()  {
                       /> 
                   </div>
                   <div className="flex space-x-4 py-4 px-4">
-                    <div className="text-primary-blue font-bold">Purchase Order Code:</div>
+                    <div className="text-primary-blue font-bold">Project Code:</div>
                     <input
                         className=''
                         type="text"

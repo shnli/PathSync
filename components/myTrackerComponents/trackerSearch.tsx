@@ -166,8 +166,8 @@ export default function SearchTracker() {
         <div className='grid '>
           <div className='grid grid-cols-7 font-bold pb-2 p-4 text-gray-500'>
             {/* <div className=''></div> */}
-            <div className='flex justify-center text-primary-blue'>Product Model</div>
-            <div className='flex justify-center'>Purchase Order</div>
+            <div className='flex justify-center text-primary-blue'>Project Name</div>
+            <div className='flex justify-center'>Project Code</div>
             <div className='flex justify-center'>Order Date</div>
             <div className='flex justify-center'>Quantity</div>
           </div>
@@ -245,7 +245,7 @@ export default function SearchTracker() {
       </label> */}
       {/* <div className="flex gap-4 w-full pb-8"> */}
         {/* <input
-          placeholder="Product Model Code"
+          placeholder="Project Name Code"
           required
           value={trackerSearch.PMSearch}
           id="PMSearch"
@@ -255,7 +255,7 @@ export default function SearchTracker() {
         />
 
         <input
-          placeholder="Purchase Order Code"
+          placeholder="Project Code Code"
           required
           value={trackerSearch.POSearch}
           id="POSearch"
