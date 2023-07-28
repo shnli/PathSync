@@ -507,11 +507,11 @@ export default function MyTrackerSubpage()  {
                         </div>
 
 
-                        <div className={`flex items-center justify-center w-[150px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue  mx-2 font-bold ${task.durationSlippage > 0 ? 'text-red-500' : isNaN(Number(task.durationSlippage)) ? 'text-black opacity-20' : task.durationSlippage < 0 ? 'text-green-600' :''}`}>
+                        <div className={`flex items-center justify-center w-[150px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue  mx-2 font-bold ${task.durationSlippage > 0 ? 'text-red-500' : isNaN(Number(task.durationSlippage)) ? 'text-black opacity-20' : task.durationSlippage < 0 ? 'text-primary-green' :''}`}>
                             {task.durationSlippage + " days"}
                         </div>
 
-                        <div className={`flex justify-center items-center w-[150px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue  mx-2 font-bold ${task.scheduleSlippage > 0 ? 'text-red-500' : isNaN(Number(task.scheduleSlippage)) ? 'text-black opacity-20' : task.scheduleSlippage < 0 ? 'text-green-600' :''}`}>
+                        <div className={`flex justify-center items-center w-[150px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue  mx-2 font-bold ${task.scheduleSlippage > 0 ? 'text-red-500' : task.scheduleSlippage < 0 ? 'text-primary-green' : isNaN(Number(task.scheduleSlippage)) ? 'text-black opacity-20' :''}`}>
                             {task.scheduleSlippage + " days"}
                         </div>
 
