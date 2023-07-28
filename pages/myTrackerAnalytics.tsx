@@ -236,8 +236,20 @@ export default function MyTrackerSubpage()  {
     const today = new Date();
 
     const renderNextTasksDue = () => {
-      const unfinishedTasks = tasks.filter(task => !task.finishCheck);
-      const nextTasksDue = unfinishedTasks.slice(0, 2);
+      // const unfinishedTasks = tasks.filter(task => !task.finishCheck);
+      // const sortedTasks = [...unfinishedTasks].sort((a, b) => a.step - b.step);
+      // const nextTasksDue = sortedTasks.slice(0, 2);
+  
+        const unfinishedTasks = tasks.filter(task => !task.finishCheck);
+        const sortedTasks = [...unfinishedTasks].sort((a, b) => {
+          const timestampA = new Date(a.expectedStart).getTime();
+          const timestampB = new Date(b.expectedStart).getTime();
+
+          return timestampA - timestampB;
+        });
+
+    const nextTasksDue = sortedTasks.slice(0, 2);
+
     
       return (
         <div className="pb-8">
@@ -283,14 +295,14 @@ export default function MyTrackerSubpage()  {
                             {task.task}
                             
                         </div>
-                        
+                    
                         
                         <div className='pt-1 w-[120px] px-4 text-xs overflow-hidden border-r-[1px] border-r-gray-350 '>
                             {task.lead}
                         </div>
 
 
-                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedFinish) < today ? 'text-red-500' : '' }`}>
+                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedStart) < today ? 'text-red-500' : '' }`}>
                             {task.expectedStart}
                         </div>
 
@@ -402,6 +414,9 @@ export default function MyTrackerSubpage()  {
                   <div className='pb-4 font-semibold text-primary-blue text-sm text-center flex justify-center gap-12'>
                     <div>F = Finished</div>
                     <div>ES = Executing Side</div>
+                  </div>
+                  <div className=' pb-2'>
+                    Upcoming Tasks are the top unfinished tasks with the earliest expected start dates.
                   </div>
                   <div className='font-bold'>
                     For Each Project
