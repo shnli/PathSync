@@ -464,7 +464,7 @@ export default function MyTrackerSubpage()  {
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75" />
                     </svg>
                   </button>
-                  
+
                   <button
                     onClick={() => handleDeleteTask(index)}
                     className="text-xs text-red-500"
@@ -550,7 +550,7 @@ export default function MyTrackerSubpage()  {
               </div>
             </div>
 
-            <div className='flex justify-center pt-4 text-red-500 text-xs'>
+            <div className='flex justify-center pt-4 text-red-500 text-xs pt-2'>
               {outputStatus}
             </div>
 
