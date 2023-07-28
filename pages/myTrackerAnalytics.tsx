@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Navbar from '../components/Navbar/Navbar';
 import React from 'react';
 import { Task as PrismaTask } from '@prisma/client';
+import { format } from 'date-fns';
+
 
 type Task = PrismaTask & {
     scheduleSlippage: number;
@@ -232,6 +234,84 @@ export default function MyTrackerSubpage()  {
       setShowInfoTab(!showInfoTab); // Toggle the visibility of the info tab
     };
 
+    const today = new Date();
+
+    const renderNextTasksDue = () => {
+      const unfinishedTasks = tasks.filter(task => !task.finishCheck);
+      const nextTasksDue = unfinishedTasks.slice(0, 2);
+    
+      return (
+        <div className="pb-8">
+          <div className='bg-white flex flex-col justify-center w-screen'>
+                <div className= "flex px-24 pb-2 font-bold text-primary-blue opacity-60">Upcoming Tasks</div>
+
+                <div className='flex justify-center'>
+                    <div className=" border-b-2">
+                    {/* <div className="grid justify-start py-2 px-4 rounded-xl font-semibold text-xs text-gray-500"> */}
+                        <div className='flex grid-cols-11 justify-start py-4 '>
+                            {/* <div className="flex jusitfy-center w-[25px] rounded-lg mx-auto px-1 text-white"> </div> */}
+                            <div className="w-[60px] px-4 text-xs text-gray-350">ES</div>
+                            <div className="w-[350px] px-4 text-xs text-primary-blue">TASK</div>
+                            <div className="w-[120px] px-4 text-xs">Assigned To</div>
+                            {/* <div className="w-[120px] px-4 text-xs">Exp. Start</div>
+                            <div className="w-[120px] px-4 text-xs">Exp. Finish</div> */}
+                            <div className="w-[200px] px-4 text-xs ">Expected Start</div>
+                            <div className="w-[200px] px-4 text-xs ">Expected Finish</div>
+                            <div className="w-[100px] px-4 text-xs">Duration</div>
+
+                        </div>
+                      {/* </div> */}
+                    </div>
+                </div>
+              </div>
+              
+            <div className='flex justify-center'>
+              <div className='pt-2 space-y-1 '>
+                {nextTasksDue.map((task, index) => (
+                <div key={index} className="flex justify-between grid-cols-11 justify-start py-2 px-4">
+                  <div className='flex grid-cols-8 bg-white'>
+                        <div className="flex jusitfy-center w-[25px] bg-gray-300 rounded-lg px-1 text-white max-h-[30px]"> {task.step}
+                        </div>
+
+         
+
+                        <div className={`pt-1 w-[50px] px-4 text-xs border-r-[1px] border-r-gray-350 font-bold ${task.executingSide.charAt(0) === 'A' ? 'text-pink-500':'text-purple-500' }`}>
+                            {task.executingSide.charAt(0)}
+                        </div>
+
+                        <div
+                            className='w-[370px] border-r-[1px] border-r-gray-350 px-4 text-xs'>
+                            {task.task}
+                            
+                        </div>
+                        
+                        
+                        <div className='pt-1 w-[120px] px-4 text-xs overflow-hidden border-r-[1px] border-r-gray-350 '>
+                            {task.lead}
+                        </div>
+
+
+                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedFinish) < today ? 'text-red-500' : '' }`}>
+                            {task.expectedStart}
+                        </div>
+
+                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedFinish) < today ? 'text-red-500' : '' }`}>
+                            {task.expectedFinish}
+                        </div>
+
+                        <div
+                            className="w-[100px]  px-4 text-xs">
+                            {task.duration + " days"} 
+                        </div>
+                        
+                      </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    };
 
     const renderTasks = () => {
       
@@ -346,7 +426,12 @@ export default function MyTrackerSubpage()  {
               </div>
             )}
 
+            {renderNextTasksDue()}
+
+
             <div className='bg-white flex flex-col justify-center w-screen'>
+            <div className= "flex px-24 pb-2 font-bold text-primary-blue opacity-60">All Tasks</div>
+
                 <div className='flex justify-center'>
                     <div className=" border-b-2">
                     {/* <div className="grid justify-start py-2 px-4 rounded-xl font-semibold text-xs text-gray-500"> */}
@@ -354,18 +439,18 @@ export default function MyTrackerSubpage()  {
                             {/* <div className="flex jusitfy-center w-[25px] rounded-lg mx-auto px-1 text-white"> </div> */}
                             <div className="w-[50px] px-2 text-xs font-bold flex justify-start">F</div>
                             <div className="w-[50px] px-[1px] text-xs text-gray-350">ES</div>
-                            <div className="w-[400px] px-4 text-xs text-primary-blue">TASK</div>
-                            <div className="w-[120px] px-4 text-xs">Assigned To</div>
+                            <div className="w-[350px] px-4 text-xs text-primary-blue">TASK</div>
+                            <div className="w-[130px] px-4 text-xs">Assigned To</div>
                             {/* <div className="w-[120px] px-4 text-xs">Exp. Start</div>
                             <div className="w-[120px] px-4 text-xs">Exp. Finish</div> */}
                             <div className="w-[120px] px-4 text-xs ">Start</div>
                             <div className="w-[120px] px-4 text-xs ">Finish</div>
-                            <div className="w-[100px] px-4 text-xs">Duration</div>
+                            <div className="w-[110px] px-4 text-xs">Duration</div>
 
                             <div className="w-[130px] px-4 text-xs text-primary-blue font-bold">Actual Duration</div>
                             <div className="w-[150px] px-4 text-xs text-primary-blue font-bold ">Duration Slippage</div>
                             <div className="w-[150px] px-4 text-xs text-primary-blue font-bold">Schedule Slippage</div>
-                            <div className="w-[170px] px-4 text-xs ">Remarks</div>
+                            <div className="w-[190px] px-4 text-xs ">Remarks</div>
                         </div>
                       {/* </div> */}
                     </div>
@@ -418,20 +503,20 @@ export default function MyTrackerSubpage()  {
                             {task.duration + " days"} 
                         </div>
                         
-                        <div className={`flex justify-center  w-[130px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue mx-2 font-bold ${task.actualDuration > task.duration ? 'text-red-500' : isNaN(Number(task.scheduleSlippage)) ? 'text-black opacity-20' : ''}`}>
+                        <div className={`flex justify-center items-center w-[130px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue mx-2 font-bold ${task.actualDuration > task.duration ? 'text-red-500' : isNaN(Number(task.scheduleSlippage)) ? 'text-black opacity-20' : ''}`}>
                             {task.actualDuration + " days"}
                         </div>
 
 
-                        <div className={`flex justify-center w-[150px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue  mx-2 font-bold ${task.durationSlippage > 0 ? 'text-red-500' : isNaN(Number(task.durationSlippage)) ? 'text-black opacity-20' : task.durationSlippage < 0 ? 'text-green-600' :''}`}>
+                        <div className={`flex items-center justify-center w-[150px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue  mx-2 font-bold ${task.durationSlippage > 0 ? 'text-red-500' : isNaN(Number(task.durationSlippage)) ? 'text-black opacity-20' : task.durationSlippage < 0 ? 'text-green-600' :''}`}>
                             {task.durationSlippage + " days"}
                         </div>
 
-                        <div className={`flex justify-center w-[150px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue  mx-2 font-bold ${task.scheduleSlippage > 0 ? 'text-red-500' : isNaN(Number(task.scheduleSlippage)) ? 'text-black opacity-20' : task.scheduleSlippage < 0 ? 'text-green-600' :''}`}>
+                        <div className={`flex justify-center items-center w-[150px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue  mx-2 font-bold ${task.scheduleSlippage > 0 ? 'text-red-500' : isNaN(Number(task.scheduleSlippage)) ? 'text-black opacity-20' : task.scheduleSlippage < 0 ? 'text-green-600' :''}`}>
                             {task.scheduleSlippage + " days"}
                         </div>
 
-                        <div style={{ height: '30px', overflow: 'auto' }}>
+                        <div style={{ height: '40px', overflow: 'auto' }}>
                           <div className="flex justify-start w-[170px] text-xs border-[1px] p-1 rounded-lg hover:border-primary-blue mx-2">
                             {task.remarks}
                           </div>
