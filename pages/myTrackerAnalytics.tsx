@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Navbar from '../components/Navbar/Navbar';
 import React from 'react';
 import { Task as PrismaTask } from '@prisma/client';
-import { format } from 'date-fns';
 
 
 type Task = PrismaTask & {
