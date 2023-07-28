@@ -100,7 +100,7 @@ export default function Analytics() {
               <div className="flex justify-center text-[300px] linear-wipe">{projectCount}</div>
               <div className="flex justify-center text-[20px] italic pb-8">Total Projects Created By You</div>
               <div className="justify-center flex mb-8 p-4 mx-24 rounded-lg bg-primary-blue font-bold text-white">
-                  <Link href={'/myTrackers'}> See Analytics for My Trackers</Link>
+                  <Link href={'/myTrackers'}> See My Tracker Details</Link>
               </div>
           </div>
 

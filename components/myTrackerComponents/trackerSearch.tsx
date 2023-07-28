@@ -6,6 +6,8 @@ import Link from 'next/link';
 
 
 export default function SearchTracker() {
+  const [loadStatus, setLoadStatus] = useState<string>('');
+
   const [showOldProject, setShowOldProject] = useState(false);
   const [projects, setProjects] = useState<{
     id: number;
@@ -24,6 +26,7 @@ export default function SearchTracker() {
   const [userId, setUserId] = useState<number | null>(null);
     
   const getUserData = async () => {
+    setLoadStatus("Loading...")
     try {
       const storedEmail = localStorage.getItem("email");
       const storedPassword = localStorage.getItem("password");
@@ -49,8 +52,8 @@ export default function SearchTracker() {
   useEffect(() => {
     if (userId) {
       // Fetch projects using the userId
-      console.log(userId)
-
+      console.log(userId);
+  
       axios
         .get(`/api/getallprojects?userId=${userId}`)
         .then((response) => {
@@ -63,14 +66,14 @@ export default function SearchTracker() {
           }));
           setProjects(projectsWithOrderDate);
           console.log('Success');
+          setLoadStatus("");
         })
-        
-        .catch((error) => console.error('HELLO Error retrieving projects:', error));
+        .catch((error) => {
+          console.error('HELLO Error retrieving projects:', error);
+          setLoadStatus("Error retrieving projects, please try again.");
+        });
     }
   }, [userId]);
-
-
-  //////////////////////////////
 
   const [tasks, setTasks] = useState<{
     id: number;
@@ -90,7 +93,10 @@ export default function SearchTracker() {
     }[]>([]);
 
   
+  const [deletionStatus, setDeletionStatus] = useState<string>('');
+
   const handleDeleteProject = async (index: number) => {
+    setDeletionStatus("Deleting...")
     const projectIndex = index ;
     const projectToDelete = projects[projectIndex];
 
@@ -141,14 +147,17 @@ export default function SearchTracker() {
         newProjects.splice(index, 1); // Remove the project at the specified index
         return newProjects;
       });
+      setDeletionStatus("Project deleted successfully!")
       console.log('Project deleted successfully!');
     } catch (error) {
+      setDeletionStatus("Error deleting project, please try again.")
       console.error('Error deleting Project:', error);
     }
   };
 
   
   const renderProjects = () => {
+    
     if (projects.length === 0) {
       return <div className="text-center lg:text-2xl opacity-30 font-semibold text-blue-600 mt-24">No projects in your database, click the &ldquo;New +&rdquo; button to add a new project!</div>;
     }
@@ -162,6 +171,7 @@ export default function SearchTracker() {
             <div className='flex justify-center'>Order Date</div>
             <div className='flex justify-center'>Quantity</div>
           </div>
+
   
   
           <div className='pt-2 space-y-'>
@@ -218,6 +228,9 @@ export default function SearchTracker() {
                   </div>
               </div>
             ))}
+            <div className= "flex justify-center items-center text-xs text-red-500 pt-4">
+            {deletionStatus}
+            </div>
           </div>
         </div>
       </>
@@ -267,7 +280,9 @@ export default function SearchTracker() {
           purchaseOrder={[trackerSearch.POSearch]}
         />
       )} */}
-
+      <div className="text-xs flex justify-center items-center text-primary-blue">
+        {loadStatus}
+      </div>
       {renderProjects()}
     </div>
   );
