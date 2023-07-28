@@ -502,7 +502,7 @@ export default function MyTrackerSubpage()  {
                             {task.duration + " days"} 
                         </div>
                         
-                        <div className={`flex justify-center items-center w-[130px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue mx-2 font-bold ${task.actualDuration > task.duration ? 'text-red-500' : isNaN(Number(task.scheduleSlippage)) ? 'text-black opacity-20' : ''}`}>
+                        <div className={`flex justify-center items-center w-[130px] px-4 text-xs border-2 p-1 rounded-lg hover:border-primary-blue text-primary-blue mx-2 font-bold ${task.actualDuration > task.duration ? 'text-red-500' : isNaN(Number(task.actualDuration)) ? 'text-black opacity-20' : ''}`}>
                             {task.actualDuration + " days"}
                         </div>
 
