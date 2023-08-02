@@ -97,7 +97,6 @@ export default function MyTrackerSubpage()  {
         const end = new Date(endDate);
         let totalDays = Math.floor((end.getTime() - start.getTime()) / oneDay) + 1; // Including start and end dates
       
-        // Exclude weekends (Saturday and Sunday)
         let remainingDays = totalDays;
         let weekends = 0;
       
@@ -135,7 +134,7 @@ export default function MyTrackerSubpage()  {
         }
       } 
       
-      let totalDuration = Math.round((latestEnd.getTime() - earliestStart.getTime()) / oneDay) + 1;
+      let totalDuration = Math.floor((latestEnd.getTime() - earliestStart.getTime()) / oneDay) + 1;
     
       let remainingDays = totalDuration;
       let weekends = 0;
@@ -178,7 +177,7 @@ export default function MyTrackerSubpage()  {
         }
       } 
       
-      let totalDuration = Math.round((latestEnd.getTime() - earliestStart.getTime()) / oneDay) + 1;
+      let totalDuration = Math.floor((latestEnd.getTime() - earliestStart.getTime()) / oneDay) + 1;
     
       let remainingDays = totalDuration;
       let weekends = 0;
@@ -194,6 +193,8 @@ export default function MyTrackerSubpage()  {
         currentDay = earliestStart.getDay()
         remainingDays--;
       }
+      
+      totalDuration = totalDuration - weekends;
 
       if (totalDuration === -748746){
         return 0
@@ -204,7 +205,7 @@ export default function MyTrackerSubpage()  {
     };
       
 
-      useEffect(() => {
+    useEffect(() => {
         console.log(id);
     
         if (id) {

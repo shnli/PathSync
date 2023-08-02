@@ -53,7 +53,7 @@ export default function Welcome(){
                 </div>
 
                 <div className="flex justify-between items-center gap-8 text-white text-[20px]">
-                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 min-h-[800px]">
+                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 flex flex-col justify-start items-start min-h-[600px]">
                         <div className="flex flex-col gap-4 text-start opacity-90">
                             <div className="flex gap-4 justify-center items-center">
                                 <div className="font-bold text-[30px]">
@@ -79,7 +79,7 @@ export default function Welcome(){
                     </div>
 
                     
-                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 min-h-[800px]">
+                    <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 flex flex-col justify-start items-start min-h-[600px]">
                         
                         <div className="flex flex-col gap-4 text-start">
                             <div className="flex gap-4 justify-center items-center">
@@ -99,7 +99,7 @@ export default function Welcome(){
                         </div>
                      </div>
 
-                     <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 min-h-[800px]">
+                     <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 flex flex-col justify-start items-start min-h-[600px]">
                         
                         <div className="flex flex-col gap-4 text-start">
                             <div className="flex gap-4 justify-center items-center">
