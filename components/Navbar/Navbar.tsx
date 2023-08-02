@@ -32,6 +32,12 @@ export default function Navbar(props: NavbarProps) {
           </div>
           <div className='flex justify-center w-full md:w-auto gap-6 text-primary-blue'>
             <div className='text-sm'>
+              <Link href="/myTrackers">
+                <button className='no-underline hover:underline'>My Projects</button>
+              </Link>
+            </div>
+
+            <div className='text-sm'>
               <Link href="/analytics">
                 <button className='no-underline hover:underline'>Analytics</button>
               </Link>

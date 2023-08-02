@@ -116,6 +116,94 @@ export default function MyTrackerSubpage()  {
         return actualDuration;
       };
 
+    const calculateProjectedProjectDuration = (tasks: Task[]) => {
+    
+      const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
+      let earliestStart = new Date(4000, 0, 1);
+      let latestEnd = new Date(1950, 0, 1);
+
+      for (let i = 0; i < tasks.length; i++) {
+        const taskStart = new Date(tasks[i].expectedStart);
+        const taskEnd = new Date(tasks[i].expectedFinish);
+    
+        if (taskStart < earliestStart) {
+          earliestStart = taskStart;
+        }
+    
+        if (taskEnd > latestEnd) {
+          latestEnd = taskEnd;
+        }
+      } 
+      
+      let totalDuration = Math.round((latestEnd.getTime() - earliestStart.getTime()) / oneDay) + 1;
+    
+      let remainingDays = totalDuration;
+      let weekends = 0;
+      let currentDay = earliestStart.getDay(); // 0: Sunday, 1: Monday, ..., 6: Saturday
+    
+      while (remainingDays > 0) {
+        if (currentDay === 5) { // Saturday
+          weekends++;
+        } else if (currentDay === 6) { // Sunday
+          weekends++;
+        }
+        earliestStart.setDate(earliestStart.getDate() + 1);
+        currentDay = earliestStart.getDay()
+        remainingDays--;
+      }
+      
+      totalDuration = totalDuration - weekends;
+
+      if (totalDuration === -748746){
+        return 0
+      }
+      return totalDuration;
+    };
+
+    const calculateActualProjectDuration = (tasks: Task[]) => {
+      const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
+      let earliestStart = new Date(4000, 0, 1);
+      let latestEnd = new Date(1950, 0, 1);
+
+      for (let i = 0; i < tasks.length; i++) {
+        const taskStart = new Date(tasks[i].start);
+        const taskEnd = new Date(tasks[i].finish);
+    
+        if (taskStart < earliestStart) {
+          earliestStart = taskStart;
+        }
+    
+        if (taskEnd > latestEnd) {
+          latestEnd = taskEnd;
+        }
+      } 
+      
+      let totalDuration = Math.round((latestEnd.getTime() - earliestStart.getTime()) / oneDay) + 1;
+    
+      let remainingDays = totalDuration;
+      let weekends = 0;
+      let currentDay = earliestStart.getDay(); // 0: Sunday, 1: Monday, ..., 6: Saturday
+    
+      while (remainingDays > 0) {
+        if (currentDay === 5) { // Saturday
+          weekends++;
+        } else if (currentDay === 6) { // Sunday
+          weekends++;
+        }
+        earliestStart.setDate(earliestStart.getDate() + 1);
+        currentDay = earliestStart.getDay()
+        remainingDays--;
+      }
+
+      if (totalDuration === -748746){
+        return 0
+      }
+
+      totalDuration = totalDuration;
+      return totalDuration;
+    };
+      
+
       useEffect(() => {
         console.log(id);
     
@@ -236,6 +324,10 @@ export default function MyTrackerSubpage()  {
     };
 
     const today = new Date();
+    
+    function isValidDate(dateString:any) {
+      return !isNaN(Date.parse(dateString));
+    }
 
     const renderNextTasksDue = () => {
       
@@ -290,10 +382,10 @@ export default function MyTrackerSubpage()  {
                         <div className='pt-1 w-[120px] px-4 text-xs overflow-hidden border-r-[1px] border-r-gray-350 '>
                           {task.lead}
                         </div>
-                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedStart).toISOString().slice(0, 10) < todayString ? 'text-red-500' : new Date(task.expectedStart).toISOString().slice(0, 10) === todayString ? 'text-primary-blue' : '' }`}>
+                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${isValidDate(task.expectedStart) && new Date(task.expectedStart).toISOString().slice(0, 10) < todayString ? 'text-red-500' : isValidDate(task.expectedStart) && new Date(task.expectedStart).toISOString().slice(0, 10) === todayString ? 'text-primary-blue' : '' }`}>
                           {task.expectedStart}
                         </div>
-                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${new Date(task.expectedFinish).toISOString().slice(0, 10) < todayString ? 'text-red-500' : new Date(task.expectedFinish).toISOString().slice(0, 10) === todayString ? 'text-primary-blue' : '' }`}>
+                        <div className={`pt-1 w-[200px] px-4 text-xs border-r-[1px] border-r-gray-350 ${isValidDate(task.expectedFinish) && new Date(task.expectedFinish).toISOString().slice(0, 10) < todayString ? 'text-red-500' : isValidDate(task.expectedFinish) && new Date(task.expectedFinish).toISOString().slice(0, 10) === todayString ? 'text-primary-blue' : '' }`}>
                           {task.expectedFinish}
                         </div>
                         <div className="w-[100px] px-4 text-xs">
@@ -339,7 +431,7 @@ export default function MyTrackerSubpage()  {
 
                 <div className='flex justify-center items-center'>
                     <div className="p-12 text-lg text-black border-2 shadow-md rounded-lg">
-                        <div className='pb-4 flex justify-center font-bold opacity-40'> Average Duration Slippage</div>
+                        <div className='pb-4 flex justify-center font-bold opacity-40'> Avg. Task Duration Slippage</div>
                         <div className='grid grid-cols-2 gap-8'>
                             <div className='flex flex-col justify-start gap-2'>
                                 <div className='flex justify-center text-3xl font-bold text-pink-500'>{calculateAverageDurationSlippage(sortedTasks, 'A Enterprise') + " days"}</div>
@@ -355,7 +447,7 @@ export default function MyTrackerSubpage()  {
 
                 <div className='flex justify-center items-center'>
                     <div className="p-12 text-lg text-black border-2 shadow-md rounded-lg">
-                        <div className='pb-4 flex justify-center font-bold opacity-40'> Average Schedule Slippage</div>
+                        <div className='pb-4 flex justify-center font-bold opacity-40'> Avg. Task Schedule Slippage</div>
                         <div className='grid grid-cols-2 gap-8'>
                             <div className='flex flex-col justify-start gap-2'>
                                 <div className='flex justify-center text-3xl font-bold text-pink-500'>{calculateAverageScheduleSlippage(sortedTasks, 'A Enterprise') + " days"}</div>
@@ -364,6 +456,41 @@ export default function MyTrackerSubpage()  {
                             <div className='flex flex-col justify-end gap-2'>
                                 <div className='flex justify-center text-3xl font-bold text-purple-700'>{calculateAverageScheduleSlippage(sortedTasks, 'B Enterprise') + " days"}</div>
                                 <div className='flex justify-center text-sm italic text-purple-700'>B Enterprise</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div className='flex justify-between w-screen px-48 py-4'>
+                <div className='flex justify-center items-center'>
+                    <div className="py-4 px-12 text-lg text-black border-2 shadow-md rounded-lg">
+                        <div className='pb-4 flex justify-center font-bold opacity-40'>Projected Project Duration</div>
+                        <div className=''>
+                            <div className='flex flex-col justify-start gap-2'>
+                                <div className='flex justify-center text-3xl font-bold opacity-40'>{calculateProjectedProjectDuration(sortedTasks) + " days"}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='flex justify-center items-center'>
+                    <div className="py-4 px-12 text-lg text-black border-2 shadow-md rounded-lg">
+                        <div className='pb-4 flex justify-center font-bold opacity-40'>Actual Project Duration</div>
+                        <div className=''>
+                            <div className='flex flex-col justify-start gap-2'>
+                                <div className='flex justify-center text-3xl font-bold opacity-40'>{calculateActualProjectDuration(sortedTasks) + " days"}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='flex justify-center items-center'>
+                    <div className="py-4 px-12 text-lg text-black border-2 shadow-md rounded-lg">
+                        <div className='pb-4 flex justify-center font-bold opacity-40'>Project Duration Slippage</div>
+                        <div className=''>
+                            <div className='flex flex-col justify-start gap-2'>
+                                <div className='flex justify-center text-3xl font-bold opacity-40'>{calculateActualProjectDuration(sortedTasks) - calculateProjectedProjectDuration(sortedTasks) + " days"}</div>
                             </div>
                         </div>
                     </div>
