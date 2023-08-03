@@ -211,7 +211,7 @@ export default function SearchTracker() {
               <div key={project.id} className=''> 
                 <div className='flex items-center grid grid-cols-12 my-1 border-[1px] rounded-lg px-4 py-2 bg-white'>
                       {/* <div> {project.id}</div> */}
-                      <div className="flex justify-start items-center" >
+                      <div className="flex justify-center items-center" >
                             <input               
                             className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
                             id={`project_${project.id}`}
