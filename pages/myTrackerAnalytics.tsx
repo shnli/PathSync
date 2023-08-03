@@ -365,7 +365,7 @@ export default function MyTrackerSubpage()  {
             <div className='pt-2 space-y-1 '>
               {nextTasksDue.length === 0 ? (
                 <div className= "flex gap-2 justify-center items-center">
-                  <div className="font-bold opacity-30 text-sm">Congratulations, you&apos;ve completed all your tasks (with provided start dates) !</div>
+                  <div className="font-bold opacity-30 text-sm">No upcoming tasks!</div>
                   <img src="/celebrate2.png" className= "w-6 h-6"></img>
                 </div>
               ) : (
@@ -592,7 +592,7 @@ export default function MyTrackerSubpage()  {
                       }`}
                       onClick={() => handleRowClick(index)}
                      >
-                    <div className='flex grid-cols-8 bg-white'>
+                    <div className='flex items-center grid-cols-8 bg-white'>
                         <div className="flex jusitfy-center w-[25px] bg-gray-300 rounded-lg px-1 text-white max-h-[30px]"> {task.step}
                         </div>
 
@@ -643,15 +643,9 @@ export default function MyTrackerSubpage()  {
                             {task.scheduleSlippage + " days"}
                         </div>
 
-                        <div style={{ height: '40px', overflow: 'auto' }}>
-                          <div className="flex justify-start w-[170px] text-xs border-[1px] p-1 rounded-lg hover:border-primary-blue mx-2">
+                          <div className="flex justify-start w-[170px] text-xs border-[1px] p-1 rounded-lg hover:border-primary-blue mx-2 max-h-[100px] overflow-auto">
                             {task.remarks}
                           </div>
-                        </div>
-
-
-
-                        
                     </div>
                     </div>    
                 ))}

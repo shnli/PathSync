@@ -31,6 +31,23 @@ export default function MyTrackerSubpage()  {
     projectId: number
   }[]>([]);
 
+  // const [projectInfo, setProjectInfo] = useState({
+  //   productModel: productModel,
+  //   purchaseOrderCode: purchaseOrderCode,
+  //   orderQuantity: orderQuantity,
+  //   orderDate: orderDate,
+  //   projectStartDate: projectStartDate
+  // });
+
+
+  // const handleProjectChange = (e: any, field: keyof typeof projectInfo) => {
+  //   const { value } = e.target;
+  //   setProjectInfo((prevProjectInfo) => ({
+  //     ...prevProjectInfo,
+  //     [field]: value,
+  //   }));
+  // };
+
 
   const [outputStatus, setOutputStatus] = useState<string>('');
 
@@ -88,7 +105,7 @@ export default function MyTrackerSubpage()  {
   const [savingStatus, setSavingStatus] = useState<string>('');
 
 
-  const saveTasks = async () => {
+  const save = async () => {
     try {
       setSavingStatus('Saving...');
 
@@ -104,16 +121,10 @@ export default function MyTrackerSubpage()  {
       });
       const authorId = me.data.id;
 
-      // const saveProject = await axios.post("/api/saveproject", {
-      //   productModel: productModel,
-      //   purchaseOrderCode: purchaseOrderCode,
-      //   orderQuantity: orderQuantity,
-      //   orderDate: orderDate,
-      //   projectStartDate: projectStartDate,
-      //   authorId: authorId
+      // await axios.post("/api/updateproject", {
+      //   ...projectInfo,
+      //   authorId: authorId,
       // });
-
-      // const projectId = saveProject.data.id;
         
       for (let i = 0; i < tasks.length; i++) {
         console.log(i)
@@ -157,6 +168,8 @@ export default function MyTrackerSubpage()  {
       return sortedTasks;
     });
   };
+
+
 
   const [insertIndex, setInsertIndex] = useState<number>(-1);
   const rightClickedTaskRef = useRef<HTMLDivElement | null>(null);
@@ -329,7 +342,7 @@ export default function MyTrackerSubpage()  {
           {sortedTasks.map((task: any, index: number) => (
 
             <div key={task.id} onContextMenu={(e) => handleTaskRightClick(e, index)} className={`flex justify-between grid-cols-7 justify-start py-4 px-4 ${index % 2 === rowIndex % 2 ? 'border-2 rounded-lg' : ''}`}>
-              <div className='flex grid-cols-8 bg-white'>
+              <div className='flex items-center grid-cols-8 bg-white'>
                 <div className="flex jusitfy-center w-[20px] bg-gray-300 rounded-lg px-1 text-white"> {task.step}
                 </div>
                 <div className="w-[50px] px-4">
@@ -399,13 +412,12 @@ export default function MyTrackerSubpage()  {
                     value={task.finish}
                     onChange={(e) => handleTaskChange(e,index, 'finish')}
                   />
-
-                  <input
-                    className='w-[200px] px-4 text-xs border-r-gray-350 border-r-[1px]'
-                    type="text"
+                  <textarea
+                    className="w-[200px] px-4 text-xs border-r-gray-350 border-r-[1px]"
+                    style={{  }} // This prevents manual resizing of the textarea
                     value={task.remarks}
-                    onChange={(e) => handleTaskChange(e,index, 'remarks')}
-                  /> 
+                    onChange={(e) => handleTaskChange(e, index, "remarks")}
+                  />
 
                   <div className='pt-1 w-[60px] px-4 text-xs overflow-hidden border-r-gray-350 border-r-[1px]'>
                     <select value={task.executingSide} onChange={(e) => handleDropDownChange(e, index, 'executingSide')}
@@ -498,54 +510,62 @@ export default function MyTrackerSubpage()  {
                   <div className="flex space-x-4 py-4 px-4">
                     <div className="text-primary-blue font-bold">Project Name:</div>
                     <input
-                        className=''
-                        type="text"
-                        value={productModel}
+                      // value={projectInfo.productModel}
+                      name="productModel"
+                      id="productModel"
+                      value = {productModel}
+                      type="text"
+                      // onChange={(e) => handleProjectChange(e, 'productModel')}
                       /> 
                   </div>
                   <div className="flex space-x-4 py-4 px-4">
                     <div className="text-primary-blue font-bold">Project Code:</div>
                     <input
-                        className=''
+                        className=""
                         type="text"
-                        value={purchaseOrderCode}
+                        value = {purchaseOrderCode}
+
+                        // value={projectInfo.purchaseOrderCode}
+                        // onChange={(e) => handleProjectChange(e, 'purchaseOrderCode')}
                       /> 
                   </div>
                   <div className="flex space-x-4 py-4 px-4">
                     <div className="text-primary-blue font-bold">Order Qty:</div>
                     <input
-                        className=''
+                        className=""
                         type="text"
-                        value={orderQuantity}
+                        value = {orderQuantity}
+
+                        // value={projectInfo.orderQuantity}
+                        // onChange={(e) => handleProjectChange(e, 'orderQuantity')}
                       /> 
                   </div>
                   <div className="flex space-x-4 py-4 px-4">
                     <div className="text-primary-blue font-bold">Order Date:</div>
                     <input
-                        className=''
+                        className=""
                         type="text"
-                        value={orderDate}
+                        value = {orderDate}
+                        // value={projectInfo.orderDate}
+                        // onChange={(e) => handleProjectChange(e, 'orderDate')}
                       /> 
                   </div>
                   <div className="flex space-x-4 py-4 px-4">
                     <div className="text-primary-blue font-bold">Start Date:</div>
                     <input
-                        className=''
+                        className=""
                         type="text"
-                        value={projectStartDate}
+                        value = {projectStartDate}
+
+                        // value={projectInfo.projectStartDate}
+                        // onChange={(e) => handleProjectChange(e, 'projectStartDate')}
                       /> 
                   </div>
 
                   <div className="flex space-x-4 py-4 px-4">
-                     <div className="text-primary-blue font-bold">ID:</div>
-                     <input
-                        className=''
-                        type="text"
-                        value={id}
-                      /> 
+                     <div className=""><span className='text-primary-blue font-bold'>ID: </span>{id}</div>
+                      
                   </div>
-
-
                 </div>
               </div>
             </div>
@@ -623,13 +643,10 @@ export default function MyTrackerSubpage()  {
                 </div>
               )}
 
-
             <div className="mt-4 px-2">
                 {renderTasks()}
             </div>
             
-
-
             <div className="pt-4 flex justify-between px-12">
               <button
                 onClick={handleAddTask}
@@ -639,7 +656,7 @@ export default function MyTrackerSubpage()  {
               </button>
               <button               
                 className="font-bold text-xs px-12 py-2 rounded-md shadow-sm hover:shadow-none bg-primary-blue text-white"
-                onClick={saveTasks}>Save Project
+                onClick={save}>Save Project
               </button>
 
             </div>

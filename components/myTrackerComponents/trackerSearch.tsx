@@ -18,6 +18,9 @@ export default function SearchTracker() {
     orderQuantity: string;
     projectStartDate:string;
     
+    status: boolean
+
+    
     }[]>([]);
 
   
@@ -155,6 +158,34 @@ export default function SearchTracker() {
     }
   };
 
+  const [checkedProjects, setCheckedProjects] = useState<number[]>([]);
+
+  useEffect(() => {
+    const storedCheckedProjects = localStorage.getItem('checkedProjects');
+    if (storedCheckedProjects) {
+      setCheckedProjects(JSON.parse(storedCheckedProjects));
+    }
+  }, []);
+
+  // Save the checkbox state to local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('checkedProjects', JSON.stringify(checkedProjects));
+    console.log(JSON.stringify(checkedProjects))
+  }, [checkedProjects]);
+
+  const handleCheckboxChange = (projectId: number) => {
+    setCheckedProjects((prevCheckedProjects) => {
+      if (prevCheckedProjects.includes(projectId)) {
+        // Create a new array without the projectID
+        const updatedProjects = prevCheckedProjects.filter((id) => id !== projectId);
+        return updatedProjects;
+      } else {
+        // Create a new array with the added projectID
+        const updatedProjects = [...prevCheckedProjects, projectId];
+        return updatedProjects;
+      }
+    });
+  };  
   
   const renderProjects = () => {
     
@@ -164,23 +195,31 @@ export default function SearchTracker() {
     return (
       <>
         <div className='grid '>
-          <div className='grid grid-cols-7 font-bold pb-2 p-4 text-gray-500'>
+          <div className='grid grid-cols-8 font-bold pb-2 p-4 text-gray-500'>
             {/* <div className=''></div> */}
+            <div className="flex justify-start">
+                Status
+            </div>
             <div className='flex justify-center text-primary-blue'>Project Name</div>
             <div className='flex justify-center'>Project Code</div>
             <div className='flex justify-center'>Order Date</div>
             <div className='flex justify-center'>Quantity</div>
           </div>
 
-  
-  
           <div className='pt-2 space-y-'>
-          {/* {sortedTasks.map((task: any, index: number) => ( */}
-
             {projects.slice().reverse().map((project:any, index:number) => (
               <div key={project.id} className=''> 
-                <div className='grid grid-cols-7 my-1 border-[1px] rounded-lg px-4 py-2 bg-white'>
+                <div className='grid grid-cols-8 my-1 border-[1px] rounded-lg px-4 py-2 bg-white'>
                       {/* <div> {project.id}</div> */}
+                      <div className="flex justify-start">
+                            <input               
+                            className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
+                            id={`project_${project.id}`}
+                            aria-describedby={`project_${project.id}`}
+                            type="checkbox"
+                            checked={checkedProjects.includes(project.id)}
+                            onChange={() => handleCheckboxChange(project.id)}></input>
+                      </div>
                       <div className='font-bold flex justify-center'>{project.productModel}</div>
                       <div className='flex justify-center'>{project.purchaseOrderCode}</div>
                       <div className='flex justify-center'>{project.orderDate}</div>

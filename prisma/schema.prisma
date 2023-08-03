@@ -37,6 +37,9 @@ model Project {
   orderDate String
   projectStartDate String
 
+  status Boolean?
+  remarks String?
+
   author    User    @relation(fields: [authorId], references: [id])
   authorId  Int
   

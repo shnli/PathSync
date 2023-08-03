@@ -109,7 +109,7 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
 }, []);
 
 
-  const handleTaskChange = (e: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof Task) => {
+  const handleTaskChange = (e: any, index: number, field: keyof Task) => {
     const { value } = e.target;
     setChecklistData(prevData => {
       const newData = [...prevData];
@@ -355,7 +355,7 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
               <div className="w-[120px] px-4 text-xs">Exp. Finish</div>
               <div className="w-[120px] px-4 text-xs text-primary-blue">Start</div>
               <div className="w-[120px] px-4 text-xs text-primary-blue">Finish</div>
-              <div className="w-[150px] px-4 text-xs text-gray-350">REMARKS</div>
+              <div className="w-[200px] px-4 text-xs text-gray-350">REMARKS</div>
               <div className="w-[70px] px-4 text-xs text-gray-350">ES</div>
             </div>
           </div>
@@ -368,7 +368,7 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
                 key={index}
                 onContextMenu={(e) => handleTaskRightClick(e, index)}
                 ref={(ref) => (rightClickedTaskRef.current = ref)}
-                className={`flex justify-between grid-cols-7 justify-start py-4 px-4 ${index % 2 === rowIndex % 2 ? 'bg-gray-100' : ''}`}
+                className={`flex items-center justify-between grid-cols-7 justify-start py-4 px-4 ${index % 2 === rowIndex % 2 ? 'bg-gray-100' : ''}`}
               >
                 <div className="flex w-[20px] justify-center bg-gray-300 rounded-lg text-white">{item.step}</div>
 
@@ -382,6 +382,7 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
                   <label htmlFor={`taskStarted-${index}`} className="text-xs">
                   </label>
                 </div>
+
                 <div className="w-[50px] px-4">
                   <input
                     type="checkbox"
@@ -400,7 +401,7 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
                   />
                   
                   
-                  <div className='pt-1 w-[120px] px-4 text-xs overflow-hidden'>
+                  <div className='flex items-center pt-1 w-[120px] px-4 text-xs overflow-hidden'>
                       <select
                       value={item.lead}
                       onChange={(e) => handleDropDownChange(e, index, 'lead')}
@@ -464,19 +465,19 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
                     onChange={(e) => handleDateChange(e, index, 'finish')}
                   />
 
-                  <input
-                    className='w-[150px] px-4 text-xs'
-                    type="text"
+                  <textarea
+                    className="w-[200px] px-4 text-xs border-r-gray-350 border-r-[1px]"
+                    style={{  }} // This prevents manual resizing of the textarea
                     value={item.remarks}
-                    onChange={(e) => handleTaskChange(e, index, 'remarks')}
-                  />      
+                    onChange={(e) => handleTaskChange(e, index, "remarks")}
+                  />
                 
 
 
 
 
 
-                <div className='pt-1 w-[70px] px-4 text-xs overflow-hidden'>
+                <div className='flex items-center pt-1 w-[70px] px-4 text-xs overflow-hidden'>
                       <select
                       value={item.executingSide}
                       onChange={(e) => handleDropDownChange(e, index, 'executingSide')}
@@ -504,26 +505,28 @@ export default function NewChecklist(props: {formData:initialFormData; engineerD
                     disabled={index === 0}
                     className="text-xs text-gray-500"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-3 h-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
                     </svg>
 
                   </button>
+                  
                   <button
                     onClick={() => handleMoveTask(index, 'down')}
                     disabled={index === checklistData.length - 1}
                     className="text-xs text-gray-500"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-3 h-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75" />
                     </svg>
 
                   </button>
+                  
                   <button
                     onClick={() => handleDeleteTask(index)}
                     className="text-xs text-red-500"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-3 h-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
 
