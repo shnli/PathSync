@@ -195,13 +195,13 @@ export default function SearchTracker() {
     return (
       <>
         <div className='grid '>
-          <div className='grid grid-cols-8 font-bold pb-2 p-4 text-gray-500'>
+          <div className='grid grid-cols-12 font-bold pb-2 p-4 text-gray-500'>
             {/* <div className=''></div> */}
             <div className="flex justify-start">
                 Status
             </div>
-            <div className='flex justify-start text-primary-blue'>Project Name</div>
-            <div className='flex justify-start'>Project Code</div>
+            <div className='flex justify-start text-primary-blue col-span-4'>Project Name</div>
+            <div className='flex justify-start col-span-2'>Project Code</div>
             <div className='flex justify-center'>Order Date</div>
             <div className='flex justify-center'>Quantity</div>
           </div>
@@ -209,9 +209,9 @@ export default function SearchTracker() {
           <div className='pt-2 '>
             {projects.slice().reverse().map((project:any, index:number) => (
               <div key={project.id} className=''> 
-                <div className='flex items-center grid grid-cols-8 my-1 border-[1px] rounded-lg px-4 py-2 bg-white'>
+                <div className='flex items-center grid grid-cols-12 my-1 border-[1px] rounded-lg px-4 py-2 bg-white'>
                       {/* <div> {project.id}</div> */}
-                      <div className="flex justify-start items-center">
+                      <div className="flex justify-start items-center" >
                             <input               
                             className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
                             id={`project_${project.id}`}
@@ -220,8 +220,8 @@ export default function SearchTracker() {
                             checked={checkedProjects.includes(project.id)}
                             onChange={() => handleCheckboxChange(project.id)}></input>
                       </div>
-                      <div className='font-bold flex justify-start '>{project.productModel}</div>
-                      <div className='flex justify-start'>{project.purchaseOrderCode}</div>
+                      <div className='font-bold flex justify-start col-span-4'>{project.productModel}</div>
+                      <div className='flex justify-start col-span-2'>{project.purchaseOrderCode}</div>
                       <div className='flex justify-center'>{project.orderDate}</div>
                       <div className='flex justify-center px-6'>{project.orderQuantity}</div>
                       
