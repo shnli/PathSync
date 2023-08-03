@@ -239,7 +239,7 @@ export default function SearchTracker() {
           <div className='pt-2 '>
             {projects.slice().reverse().map((project:any, index:number) => (
               <div key={project.id} className=''> 
-                <div className='flex items-center grid grid-cols-12 my-1 border-[1px] rounded-lg px-4 py-2 bg-white'>
+                <div className={`flex items-center grid grid-cols-12 my-1 border-[1px] rounded-lg px-4 py-2  ${isProjectFlagged(project.id) ? 'bg-gray-300' : 'bg-white'}`}>
                       {/* <div> {project.id}</div> */}
                       <div className='flex gap-4'>
                         <div className="flex justify-center items-center" >
@@ -268,7 +268,21 @@ export default function SearchTracker() {
 
 
                       </div>
-                      <div className='font-bold flex justify-start col-span-4'>{project.productModel}</div>
+                      <Link
+                        className='flex hover:underline font-bold flex justify-start col-span-4'
+                        href={{
+                        pathname: '/myTrackerAnalytics',
+                        query: {
+                            id: project.id,
+                            purchaseOrderCode: project.purchaseOrderCode,
+                            productModel: project.productModel,
+                            orderDate: project.orderDate,
+                            orderQuantity: project.orderQuantity,
+                            projectStartDate: project.projectStartDate,
+                        },
+                        }}>
+                        <div className=''>{project.productModel}</div>
+                      </Link>
                       <div className='flex justify-start col-span-2'>{project.purchaseOrderCode}</div>
                       <div className='flex justify-center'>{project.orderDate}</div>
                       <div className='flex justify-center px-6'>{project.orderQuantity}</div>

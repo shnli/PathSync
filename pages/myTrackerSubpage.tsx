@@ -31,22 +31,22 @@ export default function MyTrackerSubpage()  {
     projectId: number
   }[]>([]);
 
-  // const [projectInfo, setProjectInfo] = useState({
-  //   productModel: productModel,
-  //   purchaseOrderCode: purchaseOrderCode,
-  //   orderQuantity: orderQuantity,
-  //   orderDate: orderDate,
-  //   projectStartDate: projectStartDate
-  // });
+  const [projectInfo, setProjectInfo] = useState({
+    productModel: productModel,
+    purchaseOrderCode: purchaseOrderCode,
+    orderQuantity: orderQuantity,
+    orderDate: orderDate,
+    projectStartDate: projectStartDate
+  });
 
 
-  // const handleProjectChange = (e: any, field: keyof typeof projectInfo) => {
-  //   const { value } = e.target;
-  //   setProjectInfo((prevProjectInfo) => ({
-  //     ...prevProjectInfo,
-  //     [field]: value,
-  //   }));
-  // };
+  const handleProjectChange = (e: any, field: keyof typeof projectInfo) => {
+    const { value } = e.target;
+    setProjectInfo((prevProjectInfo) => ({
+      ...prevProjectInfo,
+      [field]: value,
+    }));
+  };
 
 
   const [outputStatus, setOutputStatus] = useState<string>('');
