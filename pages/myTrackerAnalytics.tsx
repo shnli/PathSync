@@ -407,7 +407,7 @@ export default function MyTrackerSubpage()  {
         const sortedTasks = [...tasks].sort((a, b) => a.step - b.step);
         return (
           <div className='flex flex-col'>
-            <div className='flex justify-end w-screen px-64 pt-8'>
+            <div className='flex justify-end w-screen px-64 pt-4'>
               <Link className='flex justify-center align-center rounded-lg text-white bg-primary-blue border-2 border-primary-blue text-sm px-4 w-48 py-2 hover:shadow-md hover:bg-white hover:text-primary-blue hover:border-primary-blue hover:border-2'
                     href={{
                     pathname: '/myTrackerSubpage',
@@ -423,7 +423,7 @@ export default function MyTrackerSubpage()  {
                     <div className='font-bold'>
                       Edit Project
                     </div>
-                </Link>
+              </Link>
             </div>
             <div className='flex justify-between w-screen px-48 pb-4'>
                 <div className="flex justify-center items-center">
@@ -464,39 +464,40 @@ export default function MyTrackerSubpage()  {
 
             </div>
 
-            <div className='flex justify-between w-screen px-48 py-4'>
+            <div className='px-48'>
+              <div className='flex  justify-between py-4 px-24 text-lg text-black border-2 rounded-lg'>
                 <div className='flex justify-center items-center'>
-                    <div className="py-4 px-12 text-lg text-black border-2 shadow-md rounded-lg">
-                        <div className='pb-4 flex justify-center font-bold opacity-40'>Projected Project Duration</div>
+                    <div className="">
+                        <div className='flex justify-center font-bold opacity-40'>Projected Project Duration</div>
                         <div className=''>
                             <div className='flex flex-col justify-start gap-2'>
-                                <div className='flex justify-center text-3xl font-bold opacity-40'>{calculateProjectedProjectDuration(sortedTasks) + " days"}</div>
+                                <div className='flex justify-center text-2xl font-bold opacity-40'>{calculateProjectedProjectDuration(sortedTasks) + " days"}</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className='flex justify-center items-center'>
-                    <div className="py-4 px-12 text-lg text-black border-2 shadow-md rounded-lg">
-                        <div className='pb-4 flex justify-center font-bold opacity-40'>Actual Project Duration</div>
+                    <div className="">
+                        <div className='flex justify-center font-bold opacity-40'>Actual Project Duration</div>
                         <div className=''>
                             <div className='flex flex-col justify-start gap-2'>
-                                <div className='flex justify-center text-3xl font-bold opacity-40'>{calculateActualProjectDuration(sortedTasks) + " days"}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className='flex justify-center items-center'>
-                    <div className="py-4 px-12 text-lg text-black border-2 shadow-md rounded-lg">
-                        <div className='pb-4 flex justify-center font-bold opacity-40'>Project Duration Slippage</div>
-                        <div className=''>
-                            <div className='flex flex-col justify-start gap-2'>
-                                <div className='flex justify-center text-3xl font-bold opacity-40'>{calculateActualProjectDuration(sortedTasks) - calculateProjectedProjectDuration(sortedTasks) + " days"}</div>
+                                <div className='flex justify-center text-2xl font-bold opacity-40'>{calculateActualProjectDuration(sortedTasks) + " days"}</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <div className='flex justify-center items-center'>
+                    <div className="">
+                        <div className='flex justify-center font-bold opacity-40'>Project Duration Slippage</div>
+                        <div className=''>
+                            <div className='flex flex-col justify-start gap-2'>
+                                <div className='flex justify-center text-2xl font-bold opacity-40'>{calculateActualProjectDuration(sortedTasks) - calculateProjectedProjectDuration(sortedTasks) + " days"}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
             </div>
 
             <div className='flex justify-end w-screen px-64 pt-8 gap-8 items-center pb-4'>
