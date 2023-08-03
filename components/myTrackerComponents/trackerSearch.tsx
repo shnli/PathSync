@@ -187,6 +187,36 @@ export default function SearchTracker() {
     });
   };  
   
+  const [flaggedProjects, setFlaggedProjects] = useState<number[]>([]);
+  useEffect(() => {
+    const storedFlaggedProjects = localStorage.getItem('flaggedProjects');
+    if (storedFlaggedProjects) {
+      setFlaggedProjects(JSON.parse(storedFlaggedProjects));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('flaggedProjects', JSON.stringify(flaggedProjects));
+  }, [flaggedProjects]);
+
+  const handleFlagChange = (projectId: number) => {
+    setFlaggedProjects((prevFlaggedProjects) => {
+      if (prevFlaggedProjects.includes(projectId)) {
+        // Create a new array without the projectID
+        const updatedFlaggedProjects = prevFlaggedProjects.filter((id) => id !== projectId);
+        return updatedFlaggedProjects;
+      } else {
+        // Create a new array with the added projectID
+        const updatedFlaggedProjects = [...prevFlaggedProjects, projectId];
+        return updatedFlaggedProjects;
+      }
+    });
+  };  
+
+  const isProjectFlagged = (projectId: number) => {
+    return flaggedProjects.includes(projectId);
+  };
+
   const renderProjects = () => {
     
     if (projects.length === 0) {
@@ -211,14 +241,32 @@ export default function SearchTracker() {
               <div key={project.id} className=''> 
                 <div className='flex items-center grid grid-cols-12 my-1 border-[1px] rounded-lg px-4 py-2 bg-white'>
                       {/* <div> {project.id}</div> */}
-                      <div className="flex justify-center items-center" >
-                            <input               
-                            className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
-                            id={`project_${project.id}`}
-                            aria-describedby={`project_${project.id}`}
-                            type="checkbox"
-                            checked={checkedProjects.includes(project.id)}
-                            onChange={() => handleCheckboxChange(project.id)}></input>
+                      <div className='flex gap-4'>
+                        <div className="flex justify-center items-center" >
+                          <input               
+                          className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
+                          id={`project_${project.id}`}
+                          aria-describedby={`project_${project.id}`}
+                          type="checkbox"
+                          checked={checkedProjects.includes(project.id)}
+                          onChange={() => handleCheckboxChange(project.id)}>
+                          </input>
+                        </div>
+                        
+                        <div className="flex justify-center items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" 
+                          fill={isProjectFlagged(project.id) ? 'red' : 'white'}
+                          viewBox="0 0 24 24" 
+                          stroke-width="1.5" 
+                          stroke="currentColor" 
+                          className="w-6 h-6 opacity-80" 
+                          onClick={() => handleFlagChange(project.id)}
+                          >
+                            <path d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                      </div>
+
+
                       </div>
                       <div className='font-bold flex justify-start col-span-4'>{project.productModel}</div>
                       <div className='flex justify-start col-span-2'>{project.purchaseOrderCode}</div>
