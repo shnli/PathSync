@@ -214,6 +214,8 @@ export default function SearchTracker() {
   };  
 
   const isProjectFlagged = (projectId: number) => {
+    const isFlagged = flaggedProjects.includes(projectId);
+    console.log(`Project ID: ${projectId}, isFlagged: ${isFlagged}`);
     return flaggedProjects.includes(projectId);
   };
 
@@ -239,7 +241,7 @@ export default function SearchTracker() {
           <div className='pt-2 '>
             {projects.slice().reverse().map((project:any, index:number) => (
               <div key={project.id} className=''> 
-                <div className={`flex items-center grid grid-cols-12 my-1 border-[1px] rounded-lg px-4 py-2  ${isProjectFlagged(project.id) ? 'bg-gray-300' : 'bg-white'}`}>
+                <div key={project.id} className={`flex items-center grid grid-cols-12 my-1 border-[1px] rounded-lg px-4 py-2  ${isProjectFlagged(project.id) ? 'bg-gray-100' : 'bg-white'}`}>
                       {/* <div> {project.id}</div> */}
                       <div className='flex gap-4'>
                         <div className="flex justify-center items-center" >
