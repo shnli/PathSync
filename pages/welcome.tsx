@@ -80,7 +80,7 @@ export default function Welcome(){
 
                     
                     <div className="text-center flex flex-col gap-4 bg-[#7d4ba3] bg-opacity-20 shadow-md px-12 py-12 rounded-xl w-1/2 flex flex-col justify-start items-start min-h-[600px]">
-                        
+
                         <div className="flex flex-col gap-4 text-start">
                             <div className="flex gap-4 justify-center items-center">
                                 <div className="font-bold text-[30px] linear-wipe1">
@@ -93,7 +93,7 @@ export default function Welcome(){
                                     <div> →  Upcoming Tasks</div>
                                     <div> →  Project Deletion</div>
                                     <div> →  Projected Projust Duration + Actual Project Duration + Project Duration Slippage</div>
-
+                                    <div> →  Project Status and Flagging</div>
                                 </ul>
                             </div>
                         </div>
