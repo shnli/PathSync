@@ -339,7 +339,7 @@ export default function MyTrackerSubpage()  {
         return timestampA - timestampB;
       });
     
-      const nextTasksDue = sortedTasks.slice(0, 3);
+      const nextTasksDue = sortedTasks.slice(0, 10);
     
       const todayString = today.toISOString().slice(0, 10);
     
